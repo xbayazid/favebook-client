@@ -54,7 +54,7 @@ const DiscoverBooks = () => {
         }
     ]
     return (
-        <div className='my-6 mx-5 lg:mx-24'>
+        <div className='my-6 mx-[7%]'>
             <h1 className='text-xl lg:text-5xl font-medium mb-2'>Discover your favourite book</h1>
             <p>Combines a sense of adventure and imagination, enticing potential readers to explore the content on the website</p>
             <div className='mt-10 grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4'>

@@ -1,9 +1,10 @@
 import React from 'react';
+import AuthorSearch from './AuthorSearch/AuthorSearch';
 
 const Author = () => {
     return (
         <div>
-            <h1>Author</h1>
+           <AuthorSearch/> 
         </div>
     );
 };

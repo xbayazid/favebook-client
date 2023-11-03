@@ -4,7 +4,7 @@ import Button from '../../../components/Button/Button';
 
 const MyPassion = () => {
     return (
-        <div className='my-6 mx-5 lg:mx-24 grid gap-3 grid-cols-1 lg:grid-cols-2 items-center'>
+        <div className='my-6 mx-[7%] grid gap-3 grid-cols-1 lg:grid-cols-2 items-center'>
             <div>
             <h1 className='uppercase text-xl lg:text-5xl font-medium'>“reading is my passion”</h1>
             <div className='w-[450px]'>
