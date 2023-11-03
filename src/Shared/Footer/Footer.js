@@ -6,7 +6,7 @@ import { FaFacebook, FaInstagram, FaLinkedinIn, FaTwitter } from "react-icons/fa
 
 const Footer = () => {
     return (
-        <div style={{backgroundColor: "#D0ECF1"}} className='py-5 px-3'>
+        <div style={{backgroundColor: "#D0ECF1"}} className='py-5 px-3 mt-10'>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4'>
                 <div>
                     <img className='w-3/4' src={favebookIcon} alt="" />
