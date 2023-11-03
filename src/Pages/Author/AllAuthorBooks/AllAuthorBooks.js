@@ -32,7 +32,7 @@ const AllAuthorBooks = () => {
             </div>
             <div className='mt-16'>
                 {
-                    allBooks.map((allBook, i) => <div className='bg-[#FBADAF66] py-6 mt-6'>
+                    allBooks.map((allBook, i) => <div className={` py-6 mt-6 odd:bg-[#FBADAF66] even:bg-[#D2EDF2]`}>
                     <div className='flex'>
                         <div className='px-4'>
                             <img src="https://i.ibb.co/8cyRwdk/author-4.png" alt="" />
