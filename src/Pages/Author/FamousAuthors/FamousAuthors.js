@@ -32,8 +32,8 @@ const FamousAuthors = () => {
             <div className="mt-16 grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
             {
                 authors.map((author, i) => <div className='h-[408px] group' style={{backgroundImage: "url(https://i.ibb.co/kqPCXNQ/author-1.png)", backgroundPosition: "center", backgroundRepeat: "no-repeat", backgroundSize: "cover"}}>
-                <div className='h-full w-full flex items-center justify-center'>
-                    <div className='text-center hidden group-hover:block duration-700 ease-in-out'>
+                <div className='h-full w-full bg-[rgba(51,51,51,0.6)] hidden group-hover:block duration-700 ease-in-out'>
+                    <div className='text-center h-full w-full flex flex-col text-white items-center justify-center'>
                     <h1 className='text-2xl font-bold'>“Juven merry”</h1>
                     <p>Author</p>
                     </div>
