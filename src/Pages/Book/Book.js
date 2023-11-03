@@ -1,9 +1,10 @@
 import React from 'react';
+import BookSearch from './BookSearch/BookSearch';
 
 const Book = () => {
     return (
         <div>
-            <h1>Book</h1>
+            <BookSearch/>
         </div>
     );
 };
