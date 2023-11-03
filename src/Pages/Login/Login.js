@@ -8,7 +8,7 @@ import ButtonUnFill from '../../components/ButtonUnFill/ButtonUnFill';
 
 const Login = () => {
     return (
-        <div className='w-[30%] mx-auto'>
+        <div className='w-[30%] mx-auto pt-20'>
             <Tabs.Root className="TabsRoot" defaultValue="tab1">
     <Tabs.List className="TabsList" aria-label="Manage your account">
       <Tabs.Trigger className="TabsTrigger" value="tab1">
