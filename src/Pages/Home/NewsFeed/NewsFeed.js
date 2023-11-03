@@ -17,7 +17,7 @@ const NewsFeed = () => {
         },
     ]
     return (
-        <div className='my-6 mx-5 lg:mx-24'>
+        <div className='my-6 mx-[7%]'>
             <div className='mb-2 lg:flex justify-between items-center'>
                 <div>
                     <h1 className='text-xl lg:text-5xl font-medium mb-2'>Book News feed</h1>

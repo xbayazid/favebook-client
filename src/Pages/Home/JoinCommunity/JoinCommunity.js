@@ -3,7 +3,7 @@ import Button from '../../../components/Button/Button';
 
 const JoinCommunity = () => {
     return (
-        <div className='my-6 mx-5 lg:mx-24'>
+        <div className='my-6 mx-[7%]'>
             <div className='mb-10'>
                 <h1 className='text-xl lg:text-5xl font-medium mb-3'>Join Our book Group</h1>
                 <p>Readers wanted! Browse clubs that are open to the public and find the perfect book club for you.</p>
