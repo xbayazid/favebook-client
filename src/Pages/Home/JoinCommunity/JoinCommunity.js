@@ -3,12 +3,12 @@ import Button from '../../../components/Button/Button';
 
 const JoinCommunity = () => {
     return (
-        <div className='my-6 mx-24'>
+        <div className='my-6 mx-5 lg:mx-24'>
             <div className='mb-10'>
-                <h1 className='text-5xl font-medium mb-3'>Join Our book Group</h1>
+                <h1 className='text-xl lg:text-5xl font-medium mb-3'>Join Our book Group</h1>
                 <p>Readers wanted! Browse clubs that are open to the public and find the perfect book club for you.</p>
             </div>
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
+            <div className='grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3'>
                 <div className="card w-96 bg-base-100 shadow-xl" style={{background: 'rgba(251, 173, 175, 0.40)'}}>
                     <figure className="px-5 pt-5">
                         <img src="https://i.ibb.co/DtgqWd8/group-1.png" alt="Shoes" className="rounded-xl" />
