@@ -3,10 +3,15 @@ import { Link } from 'react-router-dom';
 import navbarLogo from '../../assests/navbar-logo.png'
 import Button from '../../components/Button/Button';
 import { AuthContext } from '../../context/AuthProvider';
-import ButtonUnFill from '../../components/ButtonUnFill/ButtonUnFill';
 
 const Navbar = () => {
-    const {user} = useContext(AuthContext);
+    const { user, logOut } = useContext(AuthContext);
+
+  const handleLogOut = () => {
+    logOut()
+      .then(() => { })
+      .catch(error => console.log(error))
+  }
 
     const menuItem = (
         <React.Fragment>
@@ -45,7 +50,11 @@ const Navbar = () => {
                 </div>
                 <div className="navbar-end">
                     { user?.uid ?
-                        <Link to='/authentication'><ButtonUnFill>Log out</ButtonUnFill></Link>:
+                    <>
+                    <Link className='mr-4' to="/dashboard">Dashboard</Link>
+                    <div onClick={handleLogOut}><Button>Log out</Button></div>
+                  </>  
+                        :
                         <Link to='/authentication'><Button>Login</Button></Link>
                     }
                 </div>
