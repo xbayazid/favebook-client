@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import '../../styles.css';
 import FillButton from '../../components/FillButton/FillButton';
 import ButtonUnFill from '../../components/ButtonUnFill/ButtonUnFill';
@@ -8,10 +8,20 @@ import { AuthContext } from '../../context/AuthProvider';
 const Login = () => {
   const { register, formState: { errors }, handleSubmit } = useForm();
   const {signIn} = useContext(AuthContext);
+  const [loginError, setLoginError] = useState('');
 
   const handleLogin = data => {
     console.log(data);
-    
+    setLoginError('');
+    signIn(data.email, data.password)
+    .then(result =>{
+      const user = result.user;
+      console.log(user);
+    })
+    .catch(error => {
+      console.log(error.message);
+      setLoginError(error.message);
+    });
   }
   return (
     <div>
@@ -30,7 +40,7 @@ const Login = () => {
             {/* <label className="label"><span className="label-text">Forget Password?</span></label> */}
           </div>
           <input className='btn btn-accent w-full my-3' value="Login" type="submit" />
-          {/* {loginError && <p className='text-red-600'>{loginError}</p>} */}
+          {loginError && <p className='text-red-600'>{loginError}</p>}
         </form>
         <div className="divider">OR</div>
         <div className='text-center uppercase'>
