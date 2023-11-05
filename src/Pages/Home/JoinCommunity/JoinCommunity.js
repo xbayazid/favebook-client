@@ -8,8 +8,8 @@ const JoinCommunity = () => {
                 <h1 className='text-xl lg:text-5xl font-medium mb-3'>Join Our book Group</h1>
                 <p>Readers wanted! Browse clubs that are open to the public and find the perfect book club for you.</p>
             </div>
-            <div className='grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3'>
-                <div className="card w-96 bg-base-100 shadow-xl" style={{background: 'rgba(251, 173, 175, 0.40)'}}>
+            <div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'>
+                <div className="card bg-[#FBADAF66] shadow-xl">
                     <figure className="px-5 pt-5">
                         <img src="https://i.ibb.co/DtgqWd8/group-1.png" alt="Shoes" className="rounded-xl" />
                     </figure>
@@ -22,7 +22,7 @@ const JoinCommunity = () => {
                         </div>
                     </div>
                 </div>
-                <div className="card w-96 bg-base-100 shadow-xl" style={{background: 'rgba(251, 173, 175, 0.40)'}}>
+                <div className="card bg-[#EDD4E2] shadow-xl">
                     <figure className="px-5 pt-5">
                         <img src="https://i.ibb.co/N37KqJY/group-2.png" alt="Shoes" className="rounded-xl" />
                     </figure>
@@ -35,7 +35,7 @@ const JoinCommunity = () => {
                         </div>
                     </div>
                 </div>
-                <div className="card w-96 bg-base-100 shadow-xl" style={{background: '#D2EDF2'}}>
+                <div className="card bg-[#D2EDF2] shadow-xl">
                     <figure className="px-5 pt-5">
                         <img src="https://i.ibb.co/sgyh27X/group-3.png" alt="Shoes" className="rounded-xl" />
                     </figure>
