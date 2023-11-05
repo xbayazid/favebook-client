@@ -1,12 +1,16 @@
 import React from 'react';
 import FillButton from '../components/FillButton/FillButton';
 import Button from '../components/Button/Button';
-
 const SignUp = () => {
+  const handleSignUp = (data) =>{
+    console.log(data);
+  }
+
     return (
         <div>
             <p className="Text">Register Here</p>
-          <fieldset className="Fieldset">
+            <form >
+            <fieldset className="Fieldset">
             <label className="Label" htmlFor="name">
               Name
             </label>
@@ -31,6 +35,7 @@ const SignUp = () => {
           <div className='text-center uppercase'>
             <FillButton>connect with google</FillButton>
           </div>
+            </form>
         </div>
     );
 };
