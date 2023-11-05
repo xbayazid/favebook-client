@@ -3,21 +3,28 @@ import { Link } from 'react-router-dom';
 import Button from '../../../components/Button/Button';
 import FillButton from '../../../components/FillButton/FillButton';
 import { FaRegComments, FaRegHeart } from "react-icons/fa";
+import { useQuery } from '@tanstack/react-query';
+import { async } from 'q';
+import Loader from '../../../components/Loader/Loader';
+import PostCard from '../../../components/PostCard/PostCard';
 
 const NewsFeed = () => {
-    const posts = [
-        {
-            id: 1,
-        },
-        {
-            id: 1,
-        },
-        {
-            id: 1,
-        },
-    ]
 
+    const {data: newsFeedItems = [], isLoading} = useQuery({
+        queryKey: ['newsFeed'],
+        queryFn: async () =>{
+            const res = await fetch('http://localhost:5000/posts/');
+            const data = await res.json();
+            return data;
+        }
+    })
     
+    if(isLoading){
+        return <Loader/>
+    }
+
+    const posts = [...newsFeedItems].reverse().slice(0, 3);
+
     return (
         <div className='my-6 mx-[7%]'>
             <div className='mb-2 lg:flex justify-between items-center'>
@@ -33,34 +40,7 @@ const NewsFeed = () => {
             <hr />
             <div>
                {
-                posts.map( (post, i) =>  <div key={i} className="card card-side bg-base-100 shadow-xl mt-16" style={{ background: '#F6F4F4', borderRadius: 8 }}>
-                <div className="card-body">
-                    <h2 className="font-medium text-2xl">"Where the Crawdads Sing"</h2>
-                    <div className='flex items-center gap-3'>
-                        <div>
-                            <img src="https://i.ibb.co/jJWpBrY/men-1.png" alt="" />
-                        </div>
-                        <div>
-                            <p>Bayazid Hossian</p>
-                            <p className='text-gray-400'>Member</p>
-                        </div>
-                    </div>
-                    <div className='mt-5'>
-                        <p className='lg:w-[860px] text-justify'>The book beautifully weaves together themes of loneliness, love, mystery, and the wonders of nature. It delves into Kya's journey of self-discovery, her love for the marsh, and a poignant coming-of-age story that becomes intertwined with a mysterious death in the community........</p>
-                    </div>
-                    <div className="card-actions">
-                        <div className='flex items-center gap-5 mt-5'>
-                            <p className='text-3xl text-red-600'><FaRegHeart /></p>
-                            <p className='text-3xl text-red-600'><FaRegComments /></p>
-                            <Link><Button>Read More</Button></Link>
-                        </div>
-                    </div>
-                </div>
-
-                <div className='-mt-20 py-12 px-12'>
-                    <figure><img src="https://i.ibb.co/FKd57yV/news-Feed-1.png" alt="Movie" /></figure>
-                </div>
-            </div>)
+                posts.map( (post, i) =>  <PostCard key={i} postItem={post}></PostCard>)
                }
             </div>
             <div className='flex justify-center mt-6'>

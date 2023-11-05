@@ -9,6 +9,7 @@ import Login from "../../Pages/Login/Login";
 import SignUp from "../../SignUp/SignUp";
 import Error from "../../Pages/Error/Error";
 import Authentication from "../../Pages/Authentication/Authentication";
+import PostDetails from "../../Pages/PostDetails/PostDetails";
 
 const router = createBrowserRouter([
     {
@@ -31,6 +32,13 @@ const router = createBrowserRouter([
                 path: '/reviews',
                 element: <Reviews/>
             },
+            {
+                path: '/postDetails/:id',
+                element: <PostDetails/>,
+                loader: ({params})=> {
+                    return fetch(`http://localhost:5000/posts/${params.id}`);
+                }
+            }
         ]
     },
     {
