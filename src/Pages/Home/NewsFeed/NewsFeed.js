@@ -16,6 +16,8 @@ const NewsFeed = () => {
             id: 1,
         },
     ]
+
+    
     return (
         <div className='my-6 mx-[7%]'>
             <div className='mb-2 lg:flex justify-between items-center'>
