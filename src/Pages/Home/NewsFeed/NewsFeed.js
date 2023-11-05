@@ -33,7 +33,7 @@ const NewsFeed = () => {
             <hr />
             <div>
                {
-                posts.map( (post, i) =>  <div className="card card-side bg-base-100 shadow-xl mt-16" style={{ background: '#F6F4F4', borderRadius: 8 }}>
+                posts.map( (post, i) =>  <div key={i} className="card card-side bg-base-100 shadow-xl mt-16" style={{ background: '#F6F4F4', borderRadius: 8 }}>
                 <div className="card-body">
                     <h2 className="font-medium text-2xl">"Where the Crawdads Sing"</h2>
                     <div className='flex items-center gap-3'>
@@ -64,7 +64,7 @@ const NewsFeed = () => {
                }
             </div>
             <div className='flex justify-center mt-6'>
-                <Link to='/'><Button>View More</Button></Link>
+                <Link to='/reviews'><Button>View More</Button></Link>
             </div>
         </div>
     );

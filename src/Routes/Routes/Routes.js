@@ -8,6 +8,7 @@ import AuthLayout from "../../Layout/AuthLayout/AuthLayout";
 import Login from "../../Pages/Login/Login";
 import SignUp from "../../SignUp/SignUp";
 import Error from "../../Pages/Error/Error";
+import Authentication from "../../Pages/Authentication/Authentication";
 
 const router = createBrowserRouter([
     {
@@ -33,22 +34,12 @@ const router = createBrowserRouter([
         ]
     },
     {
-        path: '/login',
+        path: '/authentication',
         element: <AuthLayout/>,
         children: [
             {
-                path: '/login',
-                element: <Login/>
-            }
-        ]
-    },
-    {
-        path: '/signup',
-        element: <AuthLayout/>,
-        children: [
-            {
-                path: '/signup',
-                element: <SignUp/>
+                path: '/authentication',
+                element: <Authentication/>
             }
         ]
     },
