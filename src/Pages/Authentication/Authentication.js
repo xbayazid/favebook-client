@@ -11,7 +11,7 @@ const Authentication = () => {
       <Tabs.Root className="TabsRoot" defaultValue="tab1">
         <Tabs.List className="TabsList" aria-label="Manage your account">
           <Tabs.Trigger className="TabsTrigger" value="tab1">
-            Login
+          Login
           </Tabs.Trigger>
           <Tabs.Trigger className="TabsTrigger" value="tab2">
             Register
