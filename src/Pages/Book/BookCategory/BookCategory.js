@@ -1,239 +1,86 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as Tabs from '@radix-ui/react-tabs';
 import '../../../styles.css'
 import { Link } from 'react-router-dom';
 import { HiArrowSmallRight } from "react-icons/hi2";
+import { useQuery } from '@tanstack/react-query';
+import Loader from '../../../components/Loader/Loader';
+import BookCard from './BookCard';
 
 
 const BookCategory = () => {
+    const [categoryName, setCategoryName] = useState(null);
+
+    const { data: books = [], isLoading, refetch } = useQuery({
+        queryKey: ['books'],
+        queryFn: async () => {
+            const res = await fetch(`http://localhost:5000/books/${await categoryName}`);
+            const data = await res.json();
+            return data;
+        }
+    });
+
+    const { data: categories = [] } = useQuery({
+        queryKey: ['category'],
+        queryFn: async () => {
+            const res = await fetch('http://localhost:5000/categories/');
+            const data = await res.json();
+            return data;
+        }
+    });
+    console.log(categoryName)
+    console.log(books)
+
+    if (isLoading) {
+        return <Loader />
+    }
+
     return (
         <div className='my-6 mx-[7%]'>
             <Tabs.Root className="TabsRoot" defaultValue="tab1">
                 <Tabs.List className="TabsList" aria-label="Manage your account">
-                    <Tabs.Trigger className="TabsTrigger" value="tab1">
+                    <Tabs.Trigger className="TabsTrigger" value="tab1" onClick={() => {
+                        setCategoryName(null)
+                        refetch();
+                    }}>
                         All-Type
                     </Tabs.Trigger>
-                    <Tabs.Trigger className="TabsTrigger" value="tab2">
-                        Science
-                    </Tabs.Trigger>
-                    <Tabs.Trigger className="TabsTrigger" value="tab3">
-                        Fiction
-                    </Tabs.Trigger>
-                    <Tabs.Trigger className="TabsTrigger" value="tab4">
-                        Philosoppy
-                    </Tabs.Trigger>
-                    <Tabs.Trigger className="TabsTrigger" value="tab5">
-                        Biography
-                    </Tabs.Trigger>
-                    <Tabs.Trigger className="TabsTrigger" value="tab5">
-                        Poetry
-                    </Tabs.Trigger>
-                    <Tabs.Trigger className="TabsTrigger" value="tab5">
-                        Classic
-                    </Tabs.Trigger>
-                    <Tabs.Trigger className="TabsTrigger" value="tab5">
-                        Romance
-                    </Tabs.Trigger>
-                    <Tabs.Trigger className="TabsTrigger" value="tab5">
-                        Thriller
-                    </Tabs.Trigger>
+
+                    {
+
+                        categories.map(category =>
+                            <Tabs.Trigger onClick={() => {
+                                setCategoryName(category.category)
+                                refetch();
+                            }} key={category._id} className="TabsTrigger" value={category.category}>
+                                {category.category}
+                            </Tabs.Trigger>
+                        )
+                    }
                 </Tabs.List>
                 <Tabs.Content className="TabsContent" value="tab1">
                     <div className="container mx-auto p-10 md:p-20 grid lg:grid-cols-4 grid-cols-1 gap-3 transform duration-500">
-                        <div className="shadow-md mx-auto max-w-sm transform hover:-translate-y-1 duration-300 hover:shadow-xl cursor-pointer">
-                            <div className="max-h-140 overflow-hidden">
-                                <img className="w-full h-auto" src="https://i.ibb.co/LvPcSbX/book-1.png" alt="" />
-                            </div>
-                            <div className="p-7 my-auto pb-12 ">
-                                <p>by <span className='text-gray-400'>Catriona Ward</span></p>
-                                <div className="mt-[18px] font-medium">
-                                    <Link className='flex items-center gap-3'>Read & Discussion <span><HiArrowSmallRight /></span></Link>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="shadow-md mx-auto max-w-sm transform hover:-translate-y-1 duration-300 hover:shadow-xl cursor-pointer">
-                            <div className="max-h-140 overflow-hidden">
-                                <img className="w-full h-auto" src="https://i.ibb.co/sQqFxCd/book-2.png" alt="" />
-                            </div>
-                            <div className="p-7 my-auto pb-12 ">
-                                <p>by <span className='text-gray-400'>Abraham Verghese</span></p>
-                                <div className="mt-[18px] font-medium">
-                                    <Link className='flex items-center gap-3'>Read & Discussion <span><HiArrowSmallRight /></span></Link>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="shadow-md mx-auto max-w-sm transform hover:-translate-y-1 duration-300 hover:shadow-xl cursor-pointer">
-                            <div className="max-h-140 overflow-hidden">
-                                <img className="w-full h-auto" src="https://i.ibb.co/7Gn5frp/book-3.png" alt="" />
-                            </div>
-                            <div className="p-7 my-auto pb-12 ">
-                                <p>by <span className='text-gray-400'>Natasaha</span></p>
-                                <div className="mt-[18px] font-medium">
-                                    <Link className='flex items-center gap-3'>Read & Discussion <span><HiArrowSmallRight /></span></Link>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="shadow-md mx-auto max-w-sm transform hover:-translate-y-1 duration-300 hover:shadow-xl cursor-pointer">
-                            <div className="max-h-140 overflow-hidden">
-                                <img className="w-full h-auto" src="https://i.ibb.co/gVLTNmt/book-4.png" alt="" />
-                            </div>
-                            <div className="p-7 my-auto pb-12 ">
-                                <p>by <span className='text-gray-400'>Breanne Randall</span></p>
-                                <div className="mt-[18px] font-medium">
-                                    <Link className='flex items-center gap-3'>Read & Discussion <span><HiArrowSmallRight /></span></Link>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="shadow-md mx-auto max-w-sm transform hover:-translate-y-1 duration-300 hover:shadow-xl cursor-pointer">
-                            <div className="max-h-140 overflow-hidden">
-                                <img className="w-full h-auto" src="https://i.ibb.co/LvPcSbX/book-1.png" alt="" />
-                            </div>
-                            <div className="p-7 my-auto pb-12 ">
-                                <p>by <span className='text-gray-400'>Catriona Ward</span></p>
-                                <div className="mt-[18px] font-medium">
-                                    <Link className='flex items-center gap-3'>Read & Discussion <span><HiArrowSmallRight /></span></Link>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="shadow-md mx-auto max-w-sm transform hover:-translate-y-1 duration-300 hover:shadow-xl cursor-pointer">
-                            <div className="max-h-140 overflow-hidden">
-                                <img className="w-full h-auto" src="https://i.ibb.co/sQqFxCd/book-2.png" alt="" />
-                            </div>
-                            <div className="p-7 my-auto pb-12 ">
-                                <p>by <span className='text-gray-400'>Abraham Verghese</span></p>
-                                <div className="mt-[18px] font-medium">
-                                    <Link className='flex items-center gap-3'>Read & Discussion <span><HiArrowSmallRight /></span></Link>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="shadow-md mx-auto max-w-sm transform hover:-translate-y-1 duration-300 hover:shadow-xl cursor-pointer">
-                            <div className="max-h-140 overflow-hidden">
-                                <img className="w-full h-auto" src="https://i.ibb.co/7Gn5frp/book-3.png" alt="" />
-                            </div>
-                            <div className="p-7 my-auto pb-12 ">
-                                <p>by <span className='text-gray-400'>Natasaha</span></p>
-                                <div className="mt-[18px] font-medium">
-                                    <Link className='flex items-center gap-3'>Read & Discussion <span><HiArrowSmallRight /></span></Link>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="shadow-md mx-auto max-w-sm transform hover:-translate-y-1 duration-300 hover:shadow-xl cursor-pointer">
-                            <div className="max-h-140 overflow-hidden">
-                                <img className="w-full h-auto" src="https://i.ibb.co/gVLTNmt/book-4.png" alt="" />
-                            </div>
-                            <div className="p-7 my-auto pb-12 ">
-                                <p>by <span className='text-gray-400'>Breanne Randall</span></p>
-                                <div className="mt-[18px] font-medium">
-                                    <Link className='flex items-center gap-3'>Read & Discussion <span><HiArrowSmallRight /></span></Link>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="shadow-md mx-auto max-w-sm transform hover:-translate-y-1 duration-300 hover:shadow-xl cursor-pointer">
-                            <div className="max-h-140 overflow-hidden">
-                                <img className="w-full h-auto" src="https://i.ibb.co/LvPcSbX/book-1.png" alt="" />
-                            </div>
-                            <div className="p-7 my-auto pb-12 ">
-                                <p>by <span className='text-gray-400'>Catriona Ward</span></p>
-                                <div className="mt-[18px] font-medium">
-                                    <Link className='flex items-center gap-3'>Read & Discussion <span><HiArrowSmallRight /></span></Link>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="shadow-md mx-auto max-w-sm transform hover:-translate-y-1 duration-300 hover:shadow-xl cursor-pointer">
-                            <div className="max-h-140 overflow-hidden">
-                                <img className="w-full h-auto" src="https://i.ibb.co/sQqFxCd/book-2.png" alt="" />
-                            </div>
-                            <div className="p-7 my-auto pb-12 ">
-                                <p>by <span className='text-gray-400'>Abraham Verghese</span></p>
-                                <div className="mt-[18px] font-medium">
-                                    <Link className='flex items-center gap-3'>Read & Discussion <span><HiArrowSmallRight /></span></Link>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="shadow-md mx-auto max-w-sm transform hover:-translate-y-1 duration-300 hover:shadow-xl cursor-pointer">
-                            <div className="max-h-140 overflow-hidden">
-                                <img className="w-full h-auto" src="https://i.ibb.co/7Gn5frp/book-3.png" alt="" />
-                            </div>
-                            <div className="p-7 my-auto pb-12 ">
-                                <p>by <span className='text-gray-400'>Natasaha</span></p>
-                                <div className="mt-[18px] font-medium">
-                                    <Link className='flex items-center gap-3'>Read & Discussion <span><HiArrowSmallRight /></span></Link>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="shadow-md mx-auto max-w-sm transform hover:-translate-y-1 duration-300 hover:shadow-xl cursor-pointer">
-                            <div className="max-h-140 overflow-hidden">
-                                <img className="w-full h-auto" src="https://i.ibb.co/gVLTNmt/book-4.png" alt="" />
-                            </div>
-                            <div className="p-7 my-auto pb-12 ">
-                                <p>by <span className='text-gray-400'>Breanne Randall</span></p>
-                                <div className="mt-[18px] font-medium">
-                                    <Link className='flex items-center gap-3'>Read & Discussion <span><HiArrowSmallRight /></span></Link>
-                                </div>
-                            </div>
-                        </div>
+
+                        {
+                            books.map(book => <BookCard key={book._id} book={book} />)
+                        }
+
                     </div>
                 </Tabs.Content>
-                <Tabs.Content className="TabsContent" value="tab2">
-                    <div className='container mx-auto p-10 md:p-20 grid lg:grid-cols-4 grid-cols-1 gap-3 transform duration-500'>
-                    <div className="shadow-md mx-auto max-w-sm transform hover:-translate-y-1 duration-300 hover:shadow-xl cursor-pointer">
-                            <div className="max-h-140 overflow-hidden">
-                                <img className="w-full h-auto" src="https://i.ibb.co/gVLTNmt/book-4.png" alt="" />
+                {
+                    categories.map(category => (
+                        <Tabs.Content className="TabsContent" value={category.category}>
+                            <div className="container mx-auto p-10 md:p-20 grid lg:grid-cols-4 grid-cols-1 gap-3 transform duration-500">
+
+                                {
+                                    books.map(book => <BookCard key={book._id} book={book} />)
+                                }
+
                             </div>
-                            <div className="p-7 my-auto pb-12 ">
-                                <p>by <span className='text-gray-400'>Breanne Randall</span></p>
-                                <div className="mt-[18px] font-medium">
-                                    <Link className='flex items-center gap-3'>Read & Discussion <span><HiArrowSmallRight /></span></Link>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </Tabs.Content>
-                <Tabs.Content className="TabsContent" value="tab3">
-                      <div className='container mx-auto p-10 md:p-20 grid lg:grid-cols-4 grid-cols-1 gap-3 transform duration-500'>
-                      <div className="shadow-md mx-auto max-w-sm transform hover:-translate-y-1 duration-300 hover:shadow-xl cursor-pointer">
-                            <div className="max-h-140 overflow-hidden">
-                                <img className="w-full h-auto" src="https://i.ibb.co/7Gn5frp/book-3.png" alt="" />
-                            </div>
-                            <div className="p-7 my-auto pb-12 ">
-                                <p>by <span className='text-gray-400'>Natasaha</span></p>
-                                <div className="mt-[18px] font-medium">
-                                    <Link className='flex items-center gap-3'>Read & Discussion <span><HiArrowSmallRight /></span></Link>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </Tabs.Content>
-                <Tabs.Content className="TabsContent" value="tab4">
-                      <div className='container mx-auto p-10 md:p-20 grid lg:grid-cols-4 grid-cols-1 gap-3 transform duration-500'>
-                      <div className="shadow-md mx-auto max-w-sm transform hover:-translate-y-1 duration-300 hover:shadow-xl cursor-pointer">
-                            <div className="max-h-140 overflow-hidden">
-                                <img className="w-full h-auto" src="https://i.ibb.co/sQqFxCd/book-2.png" alt="" />
-                            </div>
-                            <div className="p-7 my-auto pb-12 ">
-                                <p>by <span className='text-gray-400'>Abraham Verghese</span></p>
-                                <div className="mt-[18px] font-medium">
-                                    <Link className='flex items-center gap-3'>Read & Discussion <span><HiArrowSmallRight /></span></Link>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </Tabs.Content>
-                <Tabs.Content className="TabsContent" value="tab5">
-                      <div className='container mx-auto p-10 md:p-20 grid lg:grid-cols-4 grid-cols-1 gap-3 transform duration-500'>
-                      <div className="shadow-md mx-auto max-w-sm transform hover:-translate-y-1 duration-300 hover:shadow-xl cursor-pointer">
-                            <div className="max-h-140 overflow-hidden">
-                                <img className="w-full h-auto" src="https://i.ibb.co/LvPcSbX/book-1.png" alt="" />
-                            </div>
-                            <div className="p-7 my-auto pb-12 ">
-                                <p>by <span className='text-gray-400'>Catriona Ward</span></p>
-                                <div className="mt-[18px] font-medium">
-                                    <Link className='flex items-center gap-3'>Read & Discussion <span><HiArrowSmallRight /></span></Link>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </Tabs.Content>
+                        </Tabs.Content>
+                    ))
+                }
+                
             </Tabs.Root>
         </div>
     );
