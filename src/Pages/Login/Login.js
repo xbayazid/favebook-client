@@ -4,11 +4,29 @@ import FillButton from '../../components/FillButton/FillButton';
 import ButtonUnFill from '../../components/ButtonUnFill/ButtonUnFill';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../context/AuthProvider';
+import { useLocation, useNavigate } from 'react-router-dom';
+import useToken from '../../hooks/useToken';
 
 const Login = () => {
   const { register, formState: { errors }, handleSubmit } = useForm();
   const {signIn} = useContext(AuthContext);
   const [loginError, setLoginError] = useState('');
+  const [loginUserEmail, setLoginUserEmail] = useState('');
+  const [token] = useToken(loginUserEmail);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const from = location.state?.from?.pathname || "/";
+
+  // console.log(token)
+  // console.log(loginUserEmail)
+
+  if(token){
+    // console.log('token founded')
+    // console.log(from)
+    // navigate(from, {replace: true});
+    
+  }
 
   const handleLogin = data => {
     console.log(data);
@@ -17,6 +35,9 @@ const Login = () => {
     .then(result =>{
       const user = result.user;
       console.log(user);
+      setLoginUserEmail(data.email)
+      navigate(from, {replace: true});
+      
     })
     .catch(error => {
       console.log(error.message);

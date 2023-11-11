@@ -44,7 +44,7 @@ const Banner = () => {
     ]
     return (
         <div className='mx-[7%] relative mb-24'>
-            <div className='h-[60vh] bg-[#D0ECF1]' >
+            <div className='h-[400px] bg-[#D0ECF1]' >
             </div>
             <div className='h-[600px] px-10 w-full top-16 left-0 absolute'>
 

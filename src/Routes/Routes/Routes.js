@@ -5,11 +5,15 @@ import Author from "../../Pages/Author/Author";
 import Book from "../../Pages/Book/Book";
 import Reviews from "../../Pages/Reviews/Reviews";
 import AuthLayout from "../../Layout/AuthLayout/AuthLayout";
-import Login from "../../Pages/Login/Login";
-import SignUp from "../../SignUp/SignUp";
 import Error from "../../Pages/Error/Error";
 import Authentication from "../../Pages/Authentication/Authentication";
+import PostDetails from "../../Pages/PostDetails/PostDetails";
 import Dashboard from "../../Pages/Dashboard/Dashboard";
+import PrivateRoutes from "../PrivateRoutes/PrivateRoutes";
+import DashboardLayout from "../../Layout/DashboardLayout";
+import AddBook from "../../Pages/Dashboard/AddBook/AddBook";
+import AllUser from "../../Pages/Dashboard/AllUser/AllUser";
+import AuthorAppointment from "../../Pages/Dashboard/AuthorAppointment/AuthorAppointment";
 
 const router = createBrowserRouter([
     {
@@ -32,6 +36,13 @@ const router = createBrowserRouter([
                 path: '/reviews',
                 element: <Reviews/>
             },
+            {
+                path: '/postDetails/:id',
+                element: <PrivateRoutes><PostDetails/></PrivateRoutes>,
+                loader: ({params})=> {
+                    return fetch(`http://localhost:5000/posts/${params.id}`);
+                }
+            }
         ]
     },
     {
@@ -46,7 +57,25 @@ const router = createBrowserRouter([
     },
     {
         path: '/dashboard',
-        element: <Dashboard/>
+        element: <PrivateRoutes><DashboardLayout></DashboardLayout></PrivateRoutes>,
+        children: [
+            {
+                path: '/dashboard',
+                element: <Dashboard/>
+            },
+            {
+                path: '/dashboard/addBook',
+                element: <AddBook/>
+            },
+            {
+                path: '/dashboard/allUsers',
+                element: <AllUser/>
+            },
+            {
+                path: '/dashboard/authorAppointment',
+                element: <AuthorAppointment/>
+            }
+        ]
     },
     {
         path: '*',
