@@ -14,32 +14,35 @@ import DashboardLayout from "../../Layout/DashboardLayout";
 import AddBook from "../../Pages/Dashboard/AddBook/AddBook";
 import AllUser from "../../Pages/Dashboard/AllUser/AllUser";
 import AuthorAppointment from "../../Pages/Dashboard/AuthorAppointment/AuthorAppointment";
+import MessageLayout from "../../Layout/MessageLayout";
+import Message from "../../Pages/Dashboard/Message/Message";
+import { useQuery } from "@tanstack/react-query";
 
 const router = createBrowserRouter([
     {
         path: '/',
-    element: <Main/>,
+        element: <Main />,
         children: [
             {
                 path: '/',
-                element: <Home/>
+                element: <Home />
             },
             {
                 path: '/author',
-                element: <Author/>
+                element: <Author />
             },
             {
                 path: '/book',
-                element: <Book/>
+                element: <Book />
             },
             {
                 path: '/reviews',
-                element: <Reviews/>
+                element: <Reviews />
             },
             {
                 path: '/postDetails/:id',
-                element: <PrivateRoutes><PostDetails/></PrivateRoutes>,
-                loader: ({params})=> {
+                element: <PrivateRoutes><PostDetails /></PrivateRoutes>,
+                loader: ({ params }) => {
                     return fetch(`http://localhost:5000/posts/${params.id}`);
                 }
             }
@@ -47,11 +50,11 @@ const router = createBrowserRouter([
     },
     {
         path: '/authentication',
-        element: <AuthLayout/>,
+        element: <AuthLayout />,
         children: [
             {
                 path: '/authentication',
-                element: <Authentication/>
+                element: <Authentication />
             }
         ]
     },
@@ -61,25 +64,38 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/dashboard',
-                element: <Dashboard/>
+                element: <Dashboard />
+            },
+            {
+                path: '/dashboard/message',
+                element: <MessageLayout />,
+                children: [
+                    {
+                        path: '/dashboard/message/:id',
+                        element: <Message/>,
+                        loader: ({params}) => {
+                            return fetch(`http://localhost:5000/groups/${params.id}`)
+                        }
+                    }
+                ]
             },
             {
                 path: '/dashboard/addBook',
-                element: <AddBook/>
+                element: <AddBook />
             },
             {
                 path: '/dashboard/allUsers',
-                element: <AllUser/>
+                element: <AllUser />
             },
             {
                 path: '/dashboard/authorAppointment',
-                element: <AuthorAppointment/>
+                element: <AuthorAppointment />
             }
         ]
     },
     {
         path: '*',
-        element: <Error/>
+        element: <Error />
     }
 ])
 
