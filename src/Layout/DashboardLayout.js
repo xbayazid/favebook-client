@@ -21,6 +21,9 @@ const DashboardLayout = () => {
             <li>
               <Link to='/dashboard'>My Posts</Link>
             </li>
+            <li>
+              <Link to='/dashboard/message'>My Message</Link>
+            </li>
             {
               <>
                 <li>

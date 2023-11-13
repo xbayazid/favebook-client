@@ -62,10 +62,16 @@ const AllUser = () => {
                             Member
                         </Tabs.Trigger>
                         <Tabs.Trigger className="TabsTrigger" value='author'>
-                            Author ({author.length})
+                            Authors
                         </Tabs.Trigger>
                         <Tabs.Trigger className="TabsTrigger" value='authorRequest'>
-                            Author Requested ({authorRequest.length})
+                            <div className="indicator">
+                                {
+                                    authorRequest.length &&
+                                    <span className=" indicator-item text-white badge badge-error">new</span>
+                                }
+                                <div className="grid w-36">Author Request</div>
+                            </div>
                         </Tabs.Trigger>
                         <Tabs.Trigger className="TabsTrigger" value='admin'>
                             Admin
@@ -85,11 +91,11 @@ const AllUser = () => {
                                 <tbody>
                                     {
                                         users.map((user, i) => user?.role === 'Member' ? <tr className="hover" key={user._id}>
-                                        <th><img src={user.userImage} alt="" className='h-[60px] w[60px] rounded-full' /></th>
-                                        <td>{user.name}</td>
-                                        <td>{user.email}</td>
-                                        <td><button className='btn btn-xs btn-error'>Delete</button></td>
-                                    </tr>: <></>)
+                                            <th><img src={user.userImage} alt="" className='h-[60px] w[60px] rounded-full' /></th>
+                                            <td>{user.name}</td>
+                                            <td>{user.email}</td>
+                                            <td><button className='btn btn-xs btn-error'>Delete</button></td>
+                                        </tr> : <></>)
                                     }
                                 </tbody>
                             </table>
@@ -97,20 +103,79 @@ const AllUser = () => {
                         </div>
                     </Tabs.Content>
                     <Tabs.Content className="TabsContent" value="author">
-                        <div className="container mx-auto p-10 md:p-20 grid lg:grid-cols-4 grid-cols-1 gap-3 transform duration-500">
-
+                        <div className="transform duration-500">
+                            <table className="table w-full">
+                                <thead>
+                                    <tr>
+                                        <th>Image</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        users.map((user, i) => user?.role === 'author' ? <tr className="hover" key={user._id}>
+                                            <th><img src={user.userImage} alt="" className='h-[60px] w[60px] rounded-full' /></th>
+                                            <td>{user.name}</td>
+                                            <td>{user.email}</td>
+                                            <td><button className='btn btn-xs btn-error'>Delete</button></td>
+                                        </tr> : <></>)
+                                    }
+                                </tbody>
+                            </table>
 
                         </div>
                     </Tabs.Content>
                     <Tabs.Content className="TabsContent" value="authorRequest">
-                        <div className="container mx-auto p-10 md:p-20 grid lg:grid-cols-4 grid-cols-1 gap-3 transform duration-500">
+                        <div className="transform duration-500">
 
-
+                            <table className="table w-full">
+                                <thead>
+                                    <tr>
+                                        <th>Image</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Confirm</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        users.map((user, i) => user?.role === 'authorRequest' ? <tr className="hover" key={user._id}>
+                                            <th><img src={user.userImage} alt="" className='h-[60px] w[60px] rounded-full' /></th>
+                                            <td>{user.name}</td>
+                                            <td>{user.email}</td>
+                                            <td><button className='btn btn-xs btn-success'>Confirm</button></td>
+                                            <td><button className='btn btn-xs btn-error'>Delete</button></td>
+                                        </tr> : <></>)
+                                    }
+                                </tbody>
+                            </table>
                         </div>
                     </Tabs.Content>
                     <Tabs.Content className="TabsContent" value="admin">
-                        <div className="container mx-auto p-10 md:p-20 grid lg:grid-cols-4 grid-cols-1 gap-3 transform duration-500">
-
+                        <div className="transform duration-500">
+                            <table className="table w-full">
+                                <thead>
+                                    <tr>
+                                        <th>Image</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        users.map((user, i) => user?.role === 'admin' ? <tr className="hover" key={user._id}>
+                                            <th><img src={user.userImage} alt="" className='h-[60px] w[60px] rounded-full' /></th>
+                                            <td>{user.name}</td>
+                                            <td>{user.email}</td>
+                                            <td><button className='btn btn-xs btn-error'>Delete</button></td>
+                                        </tr> : <></>)
+                                    }
+                                </tbody>
+                            </table>
 
                         </div>
                     </Tabs.Content>
