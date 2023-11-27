@@ -2,10 +2,16 @@ import React, { useContext } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { AuthContext } from '../context/AuthProvider';
 import Navbar from '../Shared/Navbar/Navbar';
+import useAdmin from '../hooks/useAdmin';
+import useAuthor from '../hooks/useAuthor';
+import useRequest from '../hooks/useRequest';
 
 const DashboardLayout = () => {
 
-  const { user } = useContext(AuthContext)
+  const { user } = useContext(AuthContext);
+  const [isAdmin] = useAdmin(user?.email);
+  const [ isAuthor ] = useAuthor(user?.email);
+  const [ isRequest ] = useRequest(user?.email);
 
   return (
     <div>
@@ -24,18 +30,19 @@ const DashboardLayout = () => {
             <li>
               <Link to='/dashboard/message'>My Message</Link>
             </li>
-            {
+            { (isAdmin || isAuthor) &&
               <>
                 <li>
                   <Link to='/dashboard/addBook'>Add A Book</Link>
+                  <Link to='/dashboard/authorAppointment'>My Appointment</Link>
                 </li>
               </>
             }
             {
-             
+             isAdmin &&
                 <li>
                   <Link to='/dashboard/allUsers'>All Users</Link>
-                  <Link to='/dashboard/authorAppointment'>My Appointment</Link>
+                  
                 </li>
 
               
