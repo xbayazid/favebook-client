@@ -16,16 +16,16 @@ const Navbar = () => {
     const menuItem = (
         <React.Fragment>
             <li>
-                <Link to='/'>Home</Link>
+                <Link to='/' className='hover:text-blue-200'>Home</Link>
             </li>
             <li>
-                <Link to='/author'>Author</Link>
+                <Link to='/author' className='hover:text-blue-200'>Author</Link>
             </li>
             <li>
-                <Link to='/book'>Book</Link>
+                <Link to='/book' className='hover:text-blue-200'>Book</Link>
             </li>
             <li>
-                <Link to='/reviews'>Reviews</Link>
+                <Link to='/reviews' className='hover:text-blue-200'>Posts</Link>
             </li>
         </React.Fragment>
     )
@@ -41,10 +41,12 @@ const Navbar = () => {
                             {menuItem}
                         </ul>
                     </div>
-                    <Link to='/' className=" normal-case text-xl">daisyUI</Link>
+                    <Link to='/' className=" normal-case text-xl">
+                        <img src={navbarLogo} alt="" width={200}/>
+                    </Link>
                 </div>
                 <div className="navbar-center hidden lg:flex">
-                    <ul className="menu menu-horizontal px-1">
+                    <ul className="flex gap-4 menu-horizontal px-1">
                         {menuItem}
                     </ul>
                 </div>

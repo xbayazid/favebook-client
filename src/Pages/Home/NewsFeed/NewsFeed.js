@@ -15,7 +15,7 @@ const NewsFeed = () => {
     const { data: newsFeedItems = [], isLoading } = useQuery({
         queryKey: ['newsFeed'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/posts/');
+            const res = await fetch('https://favebook-server-chi.vercel.app/posts/');
             const data = await res.json();
             return data;
         }
@@ -36,7 +36,7 @@ const NewsFeed = () => {
                         <p>Explore your book and like comment share</p>
                     </div>
 
-                    <div className='flex items-center gap-3 mt-3 lg:mt-0'>
+                    <div className='flex items-center z-[50] gap-3 mt-3 lg:mt-0'>
 
 
                             <label

@@ -14,7 +14,7 @@ const BookCategory = () => {
     const { data: books = [], isLoading, refetch } = useQuery({
         queryKey: ['books'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/books/${await categoryName}`);
+            const res = await fetch(`https://favebook-server-chi.vercel.app/books/`);
             const data = await res.json();
             return data;
         }
@@ -23,7 +23,7 @@ const BookCategory = () => {
     const { data: categories = [] } = useQuery({
         queryKey: ['category'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/categories/');
+            const res = await fetch('https://favebook-server-chi.vercel.app/categories/');
             const data = await res.json();
             return data;
         }
@@ -73,7 +73,7 @@ const BookCategory = () => {
                             <div className="container mx-auto p-10 md:p-20 grid lg:grid-cols-4 grid-cols-1 gap-3 transform duration-500">
 
                                 {
-                                    books.map(book => <BookCard key={book._id} book={book} />)
+                                    books.map(book => book.category === category.category && <BookCard key={book._id} book={book} />)
                                 }
 
                             </div>

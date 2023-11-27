@@ -1,28 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../../../components/Button/Button';
+import { useQuery } from '@tanstack/react-query';
 
 const AllAuthorBooks = () => {
-    const allBooks = [
-        {
-            id: 1,
-        },
-        {
-            id: 1,
-        },
-        {
-            id: 1,
-        },
-        {
-            id: 1,
-        },
-        {
-            id: 1,
-        },
-        {
-            id: 1,
-        },
-    ]
+    const [lastIndex, setLastIndex] = useState(4);
+    const {data: authors = [], isLoading} = useQuery({
+        queryKey: ['author'],
+        queryFn: async () =>{
+            const res = await fetch('http://localhost:5000/authors/');
+            const data = await res.json();
+            return data;
+        }
+    })
+    const handleLastIndex = () => {
+        setLastIndex(lastIndex + 3);
+    }
     return (
         <div className='my-9 mx-[7%]'>
             <div>
@@ -32,14 +25,14 @@ const AllAuthorBooks = () => {
             </div>
             <div className='mt-16'>
                 {
-                    allBooks.map((allBook, i) => <div className={` py-6 mt-6 odd:bg-[#FBADAF66] even:bg-[#D2EDF2]`}>
+                    authors.map((author, i) => <div className={` py-6 mt-6 odd:bg-[#FBADAF66] even:bg-[#D2EDF2]`}>
                     <div className='flex'>
                         <div className='px-4'>
-                            <img src="https://i.ibb.co/8cyRwdk/author-4.png" alt="" />
+                            <img src={author.img} alt="" />
                         </div>
                         <div className='px-3'>
                                 <div className='flex justify-between items-center'>
-                                    <h1>William Shakespeare</h1>
+                                    <h1 className='text-xl font-semibold'>{author.name}</h1>
                                     <Link to=''><Button>Join</Button></Link>
                                 </div>
                                 <div>
@@ -50,6 +43,7 @@ const AllAuthorBooks = () => {
                     </div>
                 </div>)
                 }
+                <div className="text-center my-10"><button className='btn btn-outline btn-accent' onClick={handleLastIndex}>View More</button></div>
             </div>
         </div>
     );

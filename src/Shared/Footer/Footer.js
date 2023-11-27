@@ -1,5 +1,5 @@
 import React from 'react';
-import favebookIcon from '../../assests/Faveb k.svg'
+import favebookIcon from '../../assests/navbar-logo.png'
 import { Link } from 'react-router-dom';
 import { HiOutlineLocationMarker, HiOutlineMail, HiOutlinePhone } from "react-icons/hi";
 import { FaFacebook, FaInstagram, FaLinkedinIn, FaTwitter } from "react-icons/fa";
@@ -15,12 +15,12 @@ const Footer = () => {
                 <div>
                     <p className='font-semibold leading-8'>Links</p>
                     <div className='flex-col '>
-                    <p><Link to="/">Home</Link></p>
-                    <p><Link to="/author">Author</Link></p>
-                    <p><Link to="/book">Books</Link></p>
-                    <p><Link to="/reviews">Reviews</Link></p>
-                    <p><Link to="/">Community</Link></p>
-                    <p><Link to="/login">Login</Link></p>
+                    <p><Link to="/" className='hover:text-blue-300'>Home</Link></p>
+                    <p><Link to="/author" className='hover:text-blue-300'>Author</Link></p>
+                    <p><Link to="/book" className='hover:text-blue-300'>Books</Link></p>
+                    <p><Link to="/reviews" className='hover:text-blue-300'>Reviews</Link></p>
+                    <p><Link to="/" className='hover:text-blue-300'>Community</Link></p>
+                    <p><Link to="/login" className='hover:text-blue-300'>Login</Link></p>
                     </div>
                 </div>
                 <div>
