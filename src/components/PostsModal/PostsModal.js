@@ -111,7 +111,7 @@ const PostsModal = ({setPostModal}) => {
                             <input
                                 className="btn btn-accent w-full"
                                 type="submit"
-                                value="Book NOw"
+                                value="post"
                             />
                         </form>
                     </div>
