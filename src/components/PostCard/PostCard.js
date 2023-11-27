@@ -3,9 +3,10 @@ import React from 'react';
 import { FaRegComments, FaRegHeart } from 'react-icons/fa';
 import Button from '../Button/Button';
 import { Link } from 'react-router-dom';
+import { FaUser } from "react-icons/fa6";
 
-const PostCard = ({postItem}) => {
-    const {_id, name, userImage, userType, bookName, bookImage, post} = postItem;
+const PostCard = ({ postItem }) => {
+    const { _id, name, userImage, userType, bookName, bookImage, post } = postItem;
     const slicePost = post.slice(0, 300);
     return (
         <div>
@@ -14,8 +15,13 @@ const PostCard = ({postItem}) => {
                     <h2 className="font-medium text-2xl">"{bookName}"</h2>
                     <div className='flex items-center gap-3'>
                         <div>
-                            <img src={userImage} alt="" />
+                            {
+                                userImage ?
+                                    <img src={userImage} alt="" /> : <FaUser className='text-4xl'/>
+                            }
+
                         </div>
+                        
                         <div>
                             <p>{name}</p>
                             <p className='text-gray-400'>{userType}</p>
@@ -34,7 +40,7 @@ const PostCard = ({postItem}) => {
                 </div>
 
                 <div className='-mt-20 py-12 px-12 md:absolute md:right-5'>
-                    <figure><img src={bookImage} alt="Movie" className='h-[250px] w-auto'/></figure>
+                    <figure><img src={bookImage} alt="Movie" className='h-[250px] w-auto' /></figure>
                 </div>
             </div>
         </div>

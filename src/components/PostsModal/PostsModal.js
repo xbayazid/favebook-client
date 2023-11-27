@@ -44,7 +44,7 @@ const PostsModal = ({setPostModal}) => {
                     
                 }
                 // save post to the database
-                fetch('http://localhost:5000/posts/', {
+                fetch('https://favebook-server-chi.vercel.app/posts/', {
                     method: 'POST',
                     headers: {
                         'content-type' : 'application/json'
@@ -63,7 +63,7 @@ const PostsModal = ({setPostModal}) => {
     const { data: categories = [], isLoading } = useQuery({
         queryKey: ['category'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/categories/');
+            const res = await fetch('https://favebook-server-chi.vercel.app/categories/');
             const data = await res.json();
             return data;
         }
@@ -72,7 +72,7 @@ const PostsModal = ({setPostModal}) => {
     const { data: type = [] } = useQuery({
         queryKey: ['role'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/users/${user?.email}`);
+            const res = await fetch(`https://favebook-server-chi.vercel.app/users/${user?.email}`);
             const data = await res.json();
             setUType(data.role ? data.role : 'Member');
             return data;

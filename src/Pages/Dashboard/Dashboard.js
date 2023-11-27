@@ -8,7 +8,7 @@ const Dashboard = () => {
     const {data: posts = [], isLoading} = useQuery({
         queryKey: ['post'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/posts?email=${user?.email}`)
+            const res = await fetch(`https://favebook-server-chi.vercel.app/myPosts?email=${user?.email}`)
             const data = await res.json();
             return data;
         }

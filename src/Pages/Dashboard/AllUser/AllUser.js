@@ -2,18 +2,32 @@ import * as Tabs from '@radix-ui/react-tabs';
 import '../../../styles.css'
 import React, { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
+import { FaUser } from 'react-icons/fa';
 
 const AllUser = () => {
     const [allUser, setAllUser] = useState([])
     const [author, setAuthor] = useState([]);
     const [authorRequest, setAuthorRequest] = useState([]);
     const [admin, setAdmin] = useState([]);
+    const [requestEmail , setRequestEmail ] = useState('');
+    const [role, setRole] = useState('');
+    const [userName, setUserName] = useState('')
 
 
-    const { data: users = [], isLoading } = useQuery({
+    const closeModal = (name) => {
+        // Get the modal element
+        const modal = document.getElementById(name);
+
+        // Hide the modal
+        modal.close();
+    };
+
+
+    const { data: users = [], isLoading, refetch } = useQuery({
         queryKey: ['user'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/users');
+            const res = await fetch('https://favebook-server-chi.vercel.app/users');
             const data = await res.json();
             data.map(async (user, i) => {
                 if (await user.role === 'admin') {
@@ -33,21 +47,24 @@ const AllUser = () => {
         }
     })
 
-    // users.map(async (user, i) => {
-    //     if (await user.role === 'admin') {
-    //         setAdmin([...admin, user]);
-    //     }
-    //     else if (await user.role === 'author') {
-    //         setAuthor([...author, user])
-    //     }
-    //     else if (await user.role === 'authorRequest') {
-    //         setAuthorRequest([...authorRequest, user])
-    //     }
-    //     else {
-    //         setAllUser([...allUser, user]);  
-    //     }
+    const handleRole = () =>{
+        const url = `http://localhost:5000/users/update/${requestEmail}?action=${role}`;
+        fetch(url, {
+            method: 'PUT',
+            headers: {
+                "content-type": "application/json"
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.acknowledged){
+                refetch();
+                closeModal('action-modal');
+                toast.success((role === 'confirm' ? 'Author Request Confirm Successfully': 'Author Request Cancel Successfully'))
+            }
+        })
+    }
 
-    // })
 
     const handleMakeAdmin = () => {
 
@@ -67,7 +84,7 @@ const AllUser = () => {
                         <Tabs.Trigger className="TabsTrigger" value='authorRequest'>
                             <div className="indicator">
                                 {
-                                    authorRequest.length &&
+                                    authorRequest.length > 0 &&
                                     <span className=" indicator-item text-white badge badge-error">new</span>
                                 }
                                 <div className="grid w-36">Author Request</div>
@@ -91,7 +108,8 @@ const AllUser = () => {
                                 <tbody>
                                     {
                                         users.map((user, i) => user?.role === 'Member' ? <tr className="hover" key={user._id}>
-                                            <th><img src={user.userImage} alt="" className='h-[60px] w[60px] rounded-full' /></th>
+                                            <th>{ user.userImage ? 
+                                            <img src={user.userImage} alt="" className='h-[60px] w-[60px] rounded-full' /> : <FaUser className='text-4xl'/>}</th>
                                             <td>{user.name}</td>
                                             <td>{user.email}</td>
                                             <td><button className='btn btn-xs btn-error'>Delete</button></td>
@@ -116,10 +134,16 @@ const AllUser = () => {
                                 <tbody>
                                     {
                                         users.map((user, i) => user?.role === 'author' ? <tr className="hover" key={user._id}>
-                                            <th><img src={user.userImage} alt="" className='h-[60px] w[60px] rounded-full' /></th>
+                                            <th>{ user.userImage ? 
+                                            <img src={user.userImage} alt="" className='h-[60px] w-[60px] rounded-full' /> : <FaUser className='text-4xl'/>}</th>
                                             <td>{user.name}</td>
                                             <td>{user.email}</td>
-                                            <td><button className='btn btn-xs btn-error'>Delete</button></td>
+                                            <td><button onClick={()=>{
+                                                document.getElementById('action-modal').showModal();
+                                                setRequestEmail(user.email);
+                                                setRole('delete');
+                                                setUserName(user.name)
+                                            }} className='btn btn-xs btn-error'>Delete</button></td>
                                         </tr> : <></>)
                                     }
                                 </tbody>
@@ -143,11 +167,22 @@ const AllUser = () => {
                                 <tbody>
                                     {
                                         users.map((user, i) => user?.role === 'authorRequest' ? <tr className="hover" key={user._id}>
-                                            <th><img src={user.userImage} alt="" className='h-[60px] w[60px] rounded-full' /></th>
+                                            <th>{ user.userImage ? 
+                                            <img src={user.userImage} alt="" className='h-[60px] w-[60px] rounded-full' /> : <FaUser className='text-4xl'/>}</th>
                                             <td>{user.name}</td>
                                             <td>{user.email}</td>
-                                            <td><button className='btn btn-xs btn-success'>Confirm</button></td>
-                                            <td><button className='btn btn-xs btn-error'>Delete</button></td>
+                                            <td><button onClick={()=>{
+                                                document.getElementById('action-modal').showModal();
+                                                setRequestEmail(user.email);
+                                                setRole('confirm');
+                                                setUserName(user.name)
+                                            }} className='btn btn-xs btn-success'>Confirm</button></td>
+                                            <td><button onClick={()=>{
+                                                document.getElementById('action-modal').showModal();
+                                                setRequestEmail(user.email);
+                                                setRole('cancel');
+                                                setUserName(user.name)
+                                            }} className='btn btn-xs btn-error'>Delete</button></td>
                                         </tr> : <></>)
                                     }
                                 </tbody>
@@ -168,7 +203,8 @@ const AllUser = () => {
                                 <tbody>
                                     {
                                         users.map((user, i) => user?.role === 'admin' ? <tr className="hover" key={user._id}>
-                                            <th><img src={user.userImage} alt="" className='h-[60px] w[60px] rounded-full' /></th>
+                                            <th>{ user.userImage ? 
+                                            <img src={user.userImage} alt="" className='h-[60px] w-[60px] rounded-full' /> : <FaUser className='text-4xl'/>}</th>
                                             <td>{user.name}</td>
                                             <td>{user.email}</td>
                                             <td><button className='btn btn-xs btn-error'>Delete</button></td>
@@ -182,6 +218,17 @@ const AllUser = () => {
 
                 </Tabs.Root>
             </div>
+            <dialog id="action-modal" className="modal">
+                <div className="modal-box">
+                    <form method="dialog">
+                        {/* if there is a button in form, it will close the modal */}
+                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                    </form>
+                    <h3 className="font-bold text-lg capitalize text-center my-10">do you want to {role} the {userName} {(role === 'confirm' || role === 'cancel') && 'request'} !!!</h3>
+                    
+                    <p className='text-right'><button onClick={handleRole} className={`btn btn-outline ${role === 'confirm'? 'btn-success':'btn-error'} mt-5`}>{role === 'confirm'? 'Confirm' : 'Delete'}</button></p>
+                </div>
+            </dialog>
         </div>
     );
 };
