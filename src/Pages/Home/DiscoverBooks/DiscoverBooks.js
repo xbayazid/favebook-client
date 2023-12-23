@@ -6,19 +6,19 @@ import Loader from '../../../components/Loader/Loader';
 
 const DiscoverBooks = () => {
 
-    const {data: categories = [], isLoading} = useQuery({
+    const { data: categories = [], isLoading } = useQuery({
         queryKey: ['category'],
-        queryFn: async () =>{
-            const res = await fetch('https://favebook-server-chi.vercel.app/categories/');
+        queryFn: async () => {
+            const res = await fetch('http://localhost:5000/categories/');
             const data = await res.json();
             return data;
         }
     })
 
-    
-    
-    if(isLoading){
-        return <Loader/>
+
+
+    if (isLoading) {
+        return <Loader />
     }
     console.log(categories)
     return (
@@ -27,14 +27,14 @@ const DiscoverBooks = () => {
             <p>Combines a sense of adventure and imagination, enticing potential readers to explore the content on the website</p>
             <div className='mt-10 grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4'>
                 {
-                    categories.map((category,i) => <div key={i}>
-                        <Link>
-                    <div className="card  py-8" style={{ background: "#D0ECF1" }}>
-                        <div className="card-body items-center text-center">
-                            <h2 className="font-medium">{category.category}</h2>
-                        </div>
-                    </div>
-                    </Link>
+                    categories.map((category, i) => <div key={i}>
+                        <Link to='/book'>
+                            <div className="card  py-8" style={{ background: "#D0ECF1" }}>
+                                <div className="card-body items-center text-center">
+                                    <h2 className="font-medium">{category.category}</h2>
+                                </div>
+                            </div>
+                        </Link>
                     </div>
                     )
                 }

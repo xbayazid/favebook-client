@@ -1,18 +1,21 @@
 import * as Tabs from '@radix-ui/react-tabs';
 import '../../../styles.css'
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { FaUser } from 'react-icons/fa';
+import { AuthContext } from '../../../context/AuthProvider';
 
 const AllUser = () => {
+    // const {user} = useContext(AuthContext);
     const [allUser, setAllUser] = useState([])
     const [author, setAuthor] = useState([]);
     const [authorRequest, setAuthorRequest] = useState([]);
     const [admin, setAdmin] = useState([]);
-    const [requestEmail , setRequestEmail ] = useState('');
+    const [requestEmail, setRequestEmail] = useState('');
     const [role, setRole] = useState('');
-    const [userName, setUserName] = useState('')
+    const [userName, setUserName] = useState('');
+    const [authorImage, setAuthorImage] = useState('');
 
 
     const closeModal = (name) => {
@@ -27,7 +30,7 @@ const AllUser = () => {
     const { data: users = [], isLoading, refetch } = useQuery({
         queryKey: ['user'],
         queryFn: async () => {
-            const res = await fetch('https://favebook-server-chi.vercel.app/users');
+            const res = await fetch('http://localhost:5000/users');
             const data = await res.json();
             data.map(async (user, i) => {
                 if (await user.role === 'admin') {
@@ -47,7 +50,7 @@ const AllUser = () => {
         }
     })
 
-    const handleRole = () =>{
+    const handleRole = () => {
         const url = `http://localhost:5000/users/update/${requestEmail}?action=${role}`;
         fetch(url, {
             method: 'PUT',
@@ -55,14 +58,37 @@ const AllUser = () => {
                 "content-type": "application/json"
             }
         })
-        .then(res => res.json())
-        .then(data => {
-            if(data.acknowledged){
-                refetch();
-                closeModal('action-modal');
-                toast.success((role === 'confirm' ? 'Author Request Confirm Successfully': 'Author Request Cancel Successfully'))
-            }
-        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.acknowledged) {
+                    if (role === 'confirm') {
+                        const author = {
+                            name: userName,
+                            email: requestEmail,
+                            img: authorImage
+                        }
+                        fetch(`http://localhost:5000/authors`, {
+                            method: "POST",
+                            headers: {
+                                "content-type": "application/json"
+                            },
+                            body: JSON.stringify(author)
+
+                        })
+                            .then(res => res.json)
+                            .then(data => {
+                                refetch();
+                                closeModal('action-modal');
+                                toast.success((role === 'confirm' ? 'Author Request Confirm Successfully' : 'Author Request Cancel Successfully'))
+                            })
+                    } else {
+                        refetch();
+                        closeModal('action-modal');
+                        toast.success((role === 'confirm' ? 'Author Request Confirm Successfully' : 'Author Request Cancel Successfully'))
+                    }
+
+                }
+            })
     }
 
 
@@ -108,8 +134,8 @@ const AllUser = () => {
                                 <tbody>
                                     {
                                         users.map((user, i) => user?.role === 'Member' ? <tr className="hover" key={user._id}>
-                                            <th>{ user.userImage ? 
-                                            <img src={user.userImage} alt="" className='h-[60px] w-[60px] rounded-full' /> : <FaUser className='text-4xl'/>}</th>
+                                            <th>{user.userImage ?
+                                                <img src={user.userImage} alt="" className='h-[60px] w-[60px] rounded-full' /> : <FaUser className='text-4xl' />}</th>
                                             <td>{user.name}</td>
                                             <td>{user.email}</td>
                                             <td><button className='btn btn-xs btn-error'>Delete</button></td>
@@ -134,11 +160,11 @@ const AllUser = () => {
                                 <tbody>
                                     {
                                         users.map((user, i) => user?.role === 'author' ? <tr className="hover" key={user._id}>
-                                            <th>{ user.userImage ? 
-                                            <img src={user.userImage} alt="" className='h-[60px] w-[60px] rounded-full' /> : <FaUser className='text-4xl'/>}</th>
+                                            <th>{user.userImage ?
+                                                <img src={user.userImage} alt="" className='h-[60px] w-[60px] rounded-full' /> : <FaUser className='text-4xl' />}</th>
                                             <td>{user.name}</td>
                                             <td>{user.email}</td>
-                                            <td><button onClick={()=>{
+                                            <td><button onClick={() => {
                                                 document.getElementById('action-modal').showModal();
                                                 setRequestEmail(user.email);
                                                 setRole('delete');
@@ -167,21 +193,23 @@ const AllUser = () => {
                                 <tbody>
                                     {
                                         users.map((user, i) => user?.role === 'authorRequest' ? <tr className="hover" key={user._id}>
-                                            <th>{ user.userImage ? 
-                                            <img src={user.userImage} alt="" className='h-[60px] w-[60px] rounded-full' /> : <FaUser className='text-4xl'/>}</th>
+                                            <th>{user.userImage ?
+                                                <img src={user.userImage} alt="" className='h-[60px] w-[60px] rounded-full' /> : <FaUser className='text-4xl' />}</th>
                                             <td>{user.name}</td>
                                             <td>{user.email}</td>
-                                            <td><button onClick={()=>{
+                                            <td><button onClick={() => {
                                                 document.getElementById('action-modal').showModal();
                                                 setRequestEmail(user.email);
                                                 setRole('confirm');
-                                                setUserName(user.name)
+                                                setUserName(user.name);
+                                                setAuthorImage(user.userImage);
                                             }} className='btn btn-xs btn-success'>Confirm</button></td>
-                                            <td><button onClick={()=>{
+                                            <td><button onClick={() => {
                                                 document.getElementById('action-modal').showModal();
                                                 setRequestEmail(user.email);
                                                 setRole('cancel');
                                                 setUserName(user.name)
+                                                setAuthorImage(user.userImage)
                                             }} className='btn btn-xs btn-error'>Delete</button></td>
                                         </tr> : <></>)
                                     }
@@ -203,8 +231,8 @@ const AllUser = () => {
                                 <tbody>
                                     {
                                         users.map((user, i) => user?.role === 'admin' ? <tr className="hover" key={user._id}>
-                                            <th>{ user.userImage ? 
-                                            <img src={user.userImage} alt="" className='h-[60px] w-[60px] rounded-full' /> : <FaUser className='text-4xl'/>}</th>
+                                            <th>{user.userImage ?
+                                                <img src={user.userImage} alt="" className='h-[60px] w-[60px] rounded-full' /> : <FaUser className='text-4xl' />}</th>
                                             <td>{user.name}</td>
                                             <td>{user.email}</td>
                                             <td><button className='btn btn-xs btn-error'>Delete</button></td>
@@ -225,8 +253,8 @@ const AllUser = () => {
                         <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                     </form>
                     <h3 className="font-bold text-lg capitalize text-center my-10">do you want to {role} the {userName} {(role === 'confirm' || role === 'cancel') && 'request'} !!!</h3>
-                    
-                    <p className='text-right'><button onClick={handleRole} className={`btn btn-outline ${role === 'confirm'? 'btn-success':'btn-error'} mt-5`}>{role === 'confirm'? 'Confirm' : 'Delete'}</button></p>
+
+                    <p className='text-right'><button onClick={handleRole} className={`btn btn-outline ${role === 'confirm' ? 'btn-success' : 'btn-error'} mt-5`}>{role === 'confirm' ? 'Confirm' : 'Delete'}</button></p>
                 </div>
             </dialog>
         </div>
