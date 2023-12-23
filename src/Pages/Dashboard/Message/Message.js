@@ -60,7 +60,7 @@ const Message = () => {
     return (
         <div className='mt-10'>
             {
-                messages.length > 0 ? 
+                
                 <div>
                 <div className='flex items-center gap-3 mb-5'>
                     <div className="avatar">
@@ -103,7 +103,7 @@ const Message = () => {
                     </div>
                 </div>
             </div>
-                : 'hello'
+                
             }
         </div>
     );

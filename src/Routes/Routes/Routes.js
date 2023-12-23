@@ -18,6 +18,7 @@ import MessageLayout from "../../Layout/MessageLayout";
 import Message from "../../Pages/Dashboard/Message/Message";
 import { useQuery } from "@tanstack/react-query";
 import MessageBg from "../../components/MessageBg/MessageBg";
+import CreateGroup from "../../Pages/Dashboard/CreateGroup/CreateGroup";
 
 const router = createBrowserRouter([
     {
@@ -95,6 +96,10 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard/authorAppointment',
                 element: <AuthorAppointment />
+            },
+            {
+                path: '/dashboard/createGroup',
+                element: <CreateGroup/>
             }
         ]
     },

@@ -42,7 +42,7 @@ const DashboardLayout = () => {
              isAdmin &&
                 <li>
                   <Link to='/dashboard/allUsers'>All Users</Link>
-                  
+                  <Link to='/dashboard/createGroup'>Create A Group</Link>
                 </li>
 
               
