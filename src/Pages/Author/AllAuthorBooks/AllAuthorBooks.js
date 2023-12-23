@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../../../components/Button/Button';
 import { useQuery } from '@tanstack/react-query';
+import { FaUser } from 'react-icons/fa';
 
 const AllAuthorBooks = () => {
     const [lastIndex, setLastIndex] = useState(4);
@@ -25,10 +26,13 @@ const AllAuthorBooks = () => {
             </div>
             <div className='mt-16'>
                 {
-                    authors.map((author, i) => <div className={` py-6 mt-6 odd:bg-[#FBADAF66] even:bg-[#D2EDF2]`}>
+                    authors.slice(0, lastIndex).map((author, i) => <div className={` py-6 mt-6 odd:bg-[#FBADAF66] even:bg-[#D2EDF2]`}>
                     <div className='flex'>
                         <div className='px-4'>
-                            <img src={author.img} alt="" />
+                            {
+                                author.img ? 
+                                <img src={author.img} alt="" className='h-[200px] w-[300px]'/>: <FaUser className='text-[200px]' />
+                            }
                         </div>
                         <div className='px-3'>
                                 <div className='flex justify-between items-center'>

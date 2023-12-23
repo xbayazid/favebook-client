@@ -17,6 +17,7 @@ import AuthorAppointment from "../../Pages/Dashboard/AuthorAppointment/AuthorApp
 import MessageLayout from "../../Layout/MessageLayout";
 import Message from "../../Pages/Dashboard/Message/Message";
 import { useQuery } from "@tanstack/react-query";
+import MessageBg from "../../components/MessageBg/MessageBg";
 
 const router = createBrowserRouter([
     {
@@ -43,7 +44,7 @@ const router = createBrowserRouter([
                 path: '/postDetails/:id',
                 element: <PrivateRoutes><PostDetails /></PrivateRoutes>,
                 loader: ({ params }) => {
-                    return fetch(`https://favebook-server-chi.vercel.app/posts/${params.id}`);
+                    return fetch(`http://localhost:5000/posts/${params.id}`);
                 }
             }
         ]
@@ -71,10 +72,14 @@ const router = createBrowserRouter([
                 element: <MessageLayout />,
                 children: [
                     {
+                        path: '/dashboard/message',
+                        element: <MessageBg/>
+                    },
+                    {
                         path: '/dashboard/message/:id',
                         element: <Message/>,
                         loader: ({params}) => {
-                            return fetch(`https://favebook-server-chi.vercel.app/groups/${params.id}`)
+                            return fetch(`http://localhost:5000/groups/${params.id}`)
                         }
                     }
                 ]

@@ -14,7 +14,7 @@ const BookCategory = () => {
     const { data: books = [], isLoading, refetch } = useQuery({
         queryKey: ['books'],
         queryFn: async () => {
-            const res = await fetch(`https://favebook-server-chi.vercel.app/books/`);
+            const res = await fetch(`http://localhost:5000/books/`);
             const data = await res.json();
             return data;
         }
@@ -23,7 +23,7 @@ const BookCategory = () => {
     const { data: categories = [] } = useQuery({
         queryKey: ['category'],
         queryFn: async () => {
-            const res = await fetch('https://favebook-server-chi.vercel.app/categories/');
+            const res = await fetch('http://localhost:5000/categories/');
             const data = await res.json();
             return data;
         }
