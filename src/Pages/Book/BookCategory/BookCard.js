@@ -14,7 +14,7 @@ const BookCard = ({book}) => {
                 <div className="p-7 h-[200px] my-auto pb-12 ">
                     <p>by <span className='text-gray-400'>{author}</span></p>
                     <div className="mt-[18px] font-medium">
-                        <Link className='flex items-center gap-3'>Read & Discussion <span><HiArrowSmallRight /></span></Link>
+                        <Link to='/bookDetails' className='flex items-center gap-3'>Read & Discussion <span><HiArrowSmallRight /></span></Link>
                     </div>
                 </div>
             </div>

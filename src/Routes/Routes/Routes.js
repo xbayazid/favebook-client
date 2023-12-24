@@ -18,6 +18,7 @@ import MessageLayout from "../../Layout/MessageLayout";
 import Message from "../../Pages/Dashboard/Message/Message";
 import { useQuery } from "@tanstack/react-query";
 import MessageBg from "../../components/MessageBg/MessageBg";
+import BookDetails from "../../Pages/Book/BookDetails/BookDetails";
 
 const router = createBrowserRouter([
     {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
             {
                 path: '/book',
                 element: <Book />
+            },
+            {
+                path: '/bookDetails',
+                element: <BookDetails/>
             },
             {
                 path: '/reviews',
