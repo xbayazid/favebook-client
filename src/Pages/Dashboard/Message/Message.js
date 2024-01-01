@@ -14,7 +14,7 @@ const Message = () => {
     const { data: messages = [], isLoading, refetch } = useQuery({
         queryKey: ['message', _id],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/groups/${_id}`);
+            const res = await fetch(`https://favebook-server-chi.vercel.app/groups/${_id}`);
             const data = await res.json();
             return data.message;
         }
@@ -42,7 +42,7 @@ const Message = () => {
             text
         }
 
-        fetch(`http://localhost:5000/groups/${_id}`, {
+        fetch(`https://favebook-server-chi.vercel.app/groups/${_id}`, {
             method: 'PUT',
             headers: {
                 "content-type": "application/json"
@@ -59,8 +59,13 @@ const Message = () => {
     }
     return (
         <div className='mt-10'>
+            <div className='flex justify-end'>
+            <label htmlFor="message-drawer" tabIndex={2} className="btn btn-ghost lg:hidden">
+            <span className="btn btn-outline btn-accent">View Your Group</span>
+      </label>
+            </div>
             {
-                messages.length > 0 ? 
+                
                 <div>
                 <div className='flex items-center gap-3 mb-5'>
                     <div className="avatar">
@@ -103,7 +108,7 @@ const Message = () => {
                     </div>
                 </div>
             </div>
-                : 'hello'
+                
             }
         </div>
     );

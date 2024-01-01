@@ -1,7 +1,7 @@
 import { Button } from '@radix-ui/themes';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../context/AuthProvider';
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
 const CommunityCard = ({item}) => {
@@ -9,15 +9,31 @@ const CommunityCard = ({item}) => {
     const {user} = useContext(AuthContext);
     const location = useLocation();
     const [disable, setDisavle] = useState(false);
+    const navigate = useNavigate()
 
-    // const {data} = useQuery({
-    //     queryKey: ['data'],
+    // const {data: gropuMembers = []} = useQuery({
+    //     queryKey: ['member'],
     //     queryFn: async () => {
-    //         const res = await fetch('http://localhost:5000/groups/');
+    //         const res = await fetch(`https://favebook-server-chi.vercel.app/groups/${_id}`);
     //         const data = await res.json();
-    //         const members = data.
+    //         const members = await data.members;
+    //         const joined = await members.filter(member => member.email === user?.email);
+    //         console.log(joined.length)
+    //         if(await joined.length){
+    //             setDisavle(true)
+    //         }
+    //         return members;
     //     }
     // })
+
+
+    const joined = members.filter(member => member.email === user?.email);
+    console.log(groupName, joined.length)
+    useEffect(() => {
+        if(joined.length > 0){
+            setDisavle(true);
+        }
+    }, [joined])
 
     
 
@@ -36,7 +52,7 @@ const CommunityCard = ({item}) => {
                 img
             }
 
-            fetch(`http://localhost:5000/joinGroup/${id}`, {
+            fetch(`https://favebook-server-chi.vercel.app/joinGroup/${id}`, {
             method: 'PUT',
             headers: {
                 "content-type": "application/json"
@@ -46,13 +62,16 @@ const CommunityCard = ({item}) => {
             .then(res => res.json())
             .then(data => {
                 console.log(data);
+                if(data.acknowledged){
+                    navigate('/dashboard/message')
+                }
             })
         }
     }
     return (
-        <div className="card bg-[#FBADAF66] shadow-xl">
+        <div className="card h-[600px]">
                     <figure className="px-5 pt-5">
-                        <img src={groupImage} alt="Shoes" className="rounded-xl" />
+                        <img src={groupImage} alt="Shoes" className="rounded-xl h-[250px]" />
                     </figure>
                     <div className="card-body">
                         <h2 className="card-title text-center">{groupName}</h2>

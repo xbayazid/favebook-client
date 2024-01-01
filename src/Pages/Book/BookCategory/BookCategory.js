@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 import * as Tabs from '@radix-ui/react-tabs';
 import '../../../styles.css'
-import { Link } from 'react-router-dom';
-import { HiArrowSmallRight } from "react-icons/hi2";
 import { useQuery } from '@tanstack/react-query';
 import Loader from '../../../components/Loader/Loader';
 import BookCard from './BookCard';
+import { FaSearch } from 'react-icons/fa';
 
 
 const BookCategory = () => {
     const [categoryName, setCategoryName] = useState(null);
+    const [search, setSearch] = useState('');
 
     const { data: books = [], isLoading, refetch } = useQuery({
         queryKey: ['books'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/books/`);
+            const res = await fetch(`https://favebook-server-chi.vercel.app/books/`);
             const data = await res.json();
             return data;
         }
@@ -23,7 +23,7 @@ const BookCategory = () => {
     const { data: categories = [] } = useQuery({
         queryKey: ['category'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/categories/');
+            const res = await fetch('https://favebook-server-chi.vercel.app/categories/');
             const data = await res.json();
             return data;
         }
@@ -36,7 +36,18 @@ const BookCategory = () => {
     }
 
     return (
-        <div className='my-6 mx-[7%]'>
+        <div>
+            <div className='mx-[7%]'>
+            <div className='bg-[#D0ECF1] rounded-lg'>
+                <div className=' lg:w-[757px] mx-auto py-24'>
+                    <h1 className='text-2xl lg:text-5xl font-semibold text-center'>Find your Books & Discover Your Literary Explorer</h1>
+                    <div className='mt-12 text-center'>
+                    <input onChange={(e) => setSearch(e.target.value)} className='py-4 w-96 rounded-lg input input-bordered relative' placeholder='Book Name' type="search" name="" id="" /> <span className='absolute bg-[#03CCD9] px-3 py-2 rounded-lg -ml-3'><FaSearch className='text-3xl'/></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <div className='my-6 mx-[7%]'>
             <Tabs.Root className="TabsRoot" defaultValue="tab1">
                 <Tabs.List className="TabsList" aria-label="Manage your account">
                     <Tabs.Trigger className="TabsTrigger" value="tab1" onClick={() => {
@@ -62,7 +73,9 @@ const BookCategory = () => {
                     <div className="container mx-auto p-10 md:p-20 grid lg:grid-cols-4 grid-cols-1 gap-3 transform duration-500">
 
                         {
-                            books.map(book => <BookCard key={book._id} book={book} />)
+                            books.filter(book => {
+                                return search.toLowerCase() === '' ? book : book.name.toLowerCase().includes(search)
+                            }).map(book => <BookCard key={book._id} book={book} />)
                         }
 
                     </div>
@@ -82,6 +95,7 @@ const BookCategory = () => {
                 }
                 
             </Tabs.Root>
+        </div>
         </div>
     );
 };

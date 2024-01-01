@@ -6,7 +6,7 @@ import MyPassion from '../Home/MyPassion/MyPassion';
 const Book = () => {
     return (
         <div>
-            <BookSearch/>
+            {/* <BookSearch/> */}
             <BookCategory/>
             <MyPassion/>
         </div>

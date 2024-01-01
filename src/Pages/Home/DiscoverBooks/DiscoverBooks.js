@@ -9,7 +9,7 @@ const DiscoverBooks = () => {
     const { data: categories = [], isLoading } = useQuery({
         queryKey: ['category'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/categories/');
+            const res = await fetch('https://favebook-server-chi.vercel.app/categories/');
             const data = await res.json();
             return data;
         }
@@ -20,7 +20,7 @@ const DiscoverBooks = () => {
     if (isLoading) {
         return <Loader />
     }
-    console.log(categories)
+    // console.log(categories)
     return (
         <div className='my-6 mx-[7%]'>
             <h1 className='text-xl lg:text-5xl font-medium mb-2'>Discover your favourite book</h1>
