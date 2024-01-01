@@ -29,7 +29,7 @@ const CreateGroup = () => {
                         groupName: data.name,
                         description: data.description,
                         groupImage: imgData.data.url,
-                        messages: [],
+                        message: [],
                         members: [
                             {
                                 name: user?.displayName,
@@ -39,7 +39,7 @@ const CreateGroup = () => {
                         ]
                     }
 
-                    fetch('http://localhost:5000/group', {
+                    fetch('https://favebook-server-chi.vercel.app/group', {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json',
@@ -51,7 +51,7 @@ const CreateGroup = () => {
                         .then(result => {
                             console.log(result);
                             toast.success(`${data.name} is added successfully`);
-                            // navigate('/dashboard/managedoctors');
+                            navigate('/dashboard/message');
                         })
                 }
             })

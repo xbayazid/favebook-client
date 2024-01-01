@@ -13,18 +13,13 @@ const Dashboard = () => {
     const {data: posts = [], isLoading} = useQuery({
         queryKey: ['post'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/myPosts?email=${user?.email}`)
+            const res = await fetch(`https://favebook-server-chi.vercel.app/myPosts?email=${user?.email}`)
             const data = await res.json();
             return data;
         }
     })
     return (
         <div>
-            <h1 className="text-5xl font-semibold">My Posts</h1>
-            {
-                posts.map(post => <PostCard key={post._id} postItem={post}/>)
-            }
-
             <div className='my-5 mx-3 bg-gray-300 p-3 rounded-xl'>
                 <div className='grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-7'>
                     <Link to=''>
@@ -74,6 +69,10 @@ const Dashboard = () => {
                     </div>
                 </div>
             </div>
+            <h1 className="text-5xl font-semibold">My Posts</h1>
+            {
+                posts.map(post => <PostCard key={post._id} postItem={post}/>)
+            }
         </div>
     );
 };

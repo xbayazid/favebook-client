@@ -5,6 +5,7 @@ import Navbar from '../Shared/Navbar/Navbar';
 import useAdmin from '../hooks/useAdmin';
 import useAuthor from '../hooks/useAuthor';
 import useRequest from '../hooks/useRequest';
+import { FaUserAlt } from 'react-icons/fa';
 
 const DashboardLayout = () => {
 
@@ -18,12 +19,37 @@ const DashboardLayout = () => {
       <Navbar></Navbar>
       <div className="drawer lg:drawer-open">
         <input id="dashboard-drawer" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content">
+        <div className="drawer-content ml-5">
           <Outlet></Outlet>
         </div>
-        <div className="drawer-side">
-          <label htmlFor="dashboard-drawer" className="drawer-overlay btn btn-primary drawer-button lg:hidden"></label>
-          <ul className="menu p-4 w-80 text-base-content">
+        <div className="drawer-side min-h-screen lg:sticky lg:top-2">
+          <label htmlFor="dashboard-drawer" className="drawer-overlay  drawer-button lg:hidden"></label>
+          <ul className="menu p-4 w-80 text-base-content bg-[#D0ECF1] min-h-full mt-14 lg:mt-2 rounded-md">
+            <div className='mt-5 md:w-[280px] px-5  border-b-2 pb-5 '>
+              <div className="avatar">
+                <div className="w-20 ml-[78px] rounded-full ring ring-accent ring-offset-base-100 ring-offset-2">
+                  {
+                    user?.photoURL ?
+                      <img src={user?.photoURL} alt='' /> :
+                      <FaUserAlt className='text-[65px] ml-2 mt-4' />
+                  }
+                </div>
+                {/* <MdEdit className='-ml-5 text-2xl cursor-pointer' onClick={() => document.getElementById('image-modal').showModal()} /> */}
+              </div>
+              <h3 className="text-lg font-semibold  text-center" data-tip={`${user?.displayName}`}>{user?.displayName.length > 15 ? user.displayName.slice(0, 15) + '...' : user.displayName}</h3>
+              <p className='flex justify-between items-center mt-5'><span>Type : {
+                (isAdmin || isAuthor || isRequest) ? <>{isAdmin && 'Admin'} {isAuthor && 'Owner'} {isRequest && 'Requested'}</> : 'User'
+              }
+              </span>
+                {/* {
+                  (!isAdmin && !isAuthor && !isRequest) &&
+                  // <button className="btn btn-xs" onClick={() => document.getElementById('owner-modal').showModal()} disabled={disabled}>Owner Request</button>
+                } */}
+
+
+              </p>
+              </div>
+              <div className='h-[2px] bg-black rounded-lg my-5'></div>
             <li>
               <Link to='/dashboard'>My Posts</Link>
             </li>

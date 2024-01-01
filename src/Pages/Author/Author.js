@@ -6,9 +6,9 @@ import AllAuthorBooks from './AllAuthorBooks/AllAuthorBooks';
 const Author = () => {
     return (
         <div>
-           <AuthorSearch/>
-           <FamousAuthors/>
+           {/* <AuthorSearch/> */}
            <AllAuthorBooks/> 
+           <FamousAuthors/>
         </div>
     );
 };

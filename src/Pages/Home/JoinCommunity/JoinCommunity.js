@@ -12,7 +12,7 @@ const JoinCommunity = () => {
     const {data: groups = [], isLoading} = useQuery({
         queryKey: ['group'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/groups/');
+            const res = await fetch('https://favebook-server-chi.vercel.app/groups/');
             const data = await res.json();
             return data;
         }
@@ -53,7 +53,7 @@ const JoinCommunity = () => {
                 >
 
                     {
-                        groups.map(item => <SwiperSlide key={item._id}><CommunityCard item={item} /></SwiperSlide>)
+                        groups.map(item => <SwiperSlide key={item._id} className='odd:bg-[#FBADAF66] even:bg-[#D2EDF2] rounded-xl'><CommunityCard item={item} /></SwiperSlide>)
                     }
                 </Swiper>
             </div>
