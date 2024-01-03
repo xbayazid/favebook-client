@@ -16,6 +16,8 @@ const AllUser = () => {
     const [role, setRole] = useState('');
     const [userName, setUserName] = useState('');
     const [authorImage, setAuthorImage] = useState('');
+    const [bookName, setBookName] = useState('');
+    const [authorMeet, setAuthorMeet] = useState('');
 
 
     const closeModal = (name) => {
@@ -30,7 +32,7 @@ const AllUser = () => {
     const { data: users = [], isLoading, refetch } = useQuery({
         queryKey: ['user'],
         queryFn: async () => {
-            const res = await fetch('https://favebook-server-chi.vercel.app/users');
+            const res = await fetch('http://localhost:5000/users');
             const data = await res.json();
             data.map(async (user, i) => {
                 if (await user.role === 'admin') {
@@ -51,7 +53,7 @@ const AllUser = () => {
     })
 
     const handleRole = () => {
-        const url = `https://favebook-server-chi.vercel.app/users/update/${requestEmail}?action=${role}`;
+        const url = `http://localhost:5000/users/update/${requestEmail}?action=${role}`;
         fetch(url, {
             method: 'PUT',
             headers: {
@@ -65,9 +67,11 @@ const AllUser = () => {
                         const author = {
                             name: userName,
                             email: requestEmail,
-                            img: authorImage
+                            img: authorImage,
+                            bookNames: bookName,
+                            meet: authorMeet
                         }
-                        fetch(`https://favebook-server-chi.vercel.app/authors`, {
+                        fetch(`http://localhost:5000/authors`, {
                             method: "POST",
                             headers: {
                                 "content-type": "application/json"
@@ -186,6 +190,7 @@ const AllUser = () => {
                                         <th>Image</th>
                                         <th>Name</th>
                                         <th>Email</th>
+                                        <th>Book Names</th>
                                         <th>Confirm</th>
                                         <th>Delete</th>
                                     </tr>
@@ -197,12 +202,15 @@ const AllUser = () => {
                                                 <img src={user.userImage} alt="" className='h-[60px] w-[60px] rounded-full' /> : <FaUser className='text-4xl' />}</th>
                                             <td>{user.name}</td>
                                             <td>{user.email}</td>
+                                            <td>{user.bookName}</td>
                                             <td><button onClick={() => {
                                                 document.getElementById('action-modal').showModal();
                                                 setRequestEmail(user.email);
                                                 setRole('confirm');
                                                 setUserName(user.name);
                                                 setAuthorImage(user.userImage);
+                                                setBookName(user.bookName);
+                                                setAuthorMeet(user.meet);
                                             }} className='btn btn-xs btn-success'>Confirm</button></td>
                                             <td><button onClick={() => {
                                                 document.getElementById('action-modal').showModal();
