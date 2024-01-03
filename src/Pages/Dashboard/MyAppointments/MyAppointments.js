@@ -10,14 +10,14 @@ const MyAppointments = () => {
     const { data: meeting = [], isLoading, refetch } = useQuery({
         queryKey: ['meeting'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/meeting?email=${user?.email}`);
+            const res = await fetch(`https://favebook-server-chi.vercel.app/meeting?email=${user?.email}`);
             const data = await res.json();
             return data;
         }
     })
 
     const handleDelete = (id) => {
-        fetch(`http://localhost:5000/meeting/${id}`, {
+        fetch(`https://favebook-server-chi.vercel.app/meeting/${id}`, {
             method: "DELETE"
         })
             .then(res => res.json())
@@ -53,7 +53,7 @@ const MyAppointments = () => {
                                 <td>{user.authorEmail}</td>
                                 <td>{user.date ? user.date : 'Not Confirm Yet'}</td>
                                 <td>{user.time ? user.time : 'Not Confirm Yet'}</td>
-                                <td>{user.status === 'pending' ? user.status : <Link to={user.meet} target='_blank' className='btn btn-xs btn-success'> Join Meet</Link>}</td>
+                                <td>{user.status === 'pending' ? user.status : <a href={user.meet} target='_blank' className='btn btn-xs btn-success'> Join Meet</a>}</td>
                                 <td><button onClick={() => handleDelete(user._id)
                                 } className='btn btn-xs btn-error'>Delete</button></td>
                             </tr>)

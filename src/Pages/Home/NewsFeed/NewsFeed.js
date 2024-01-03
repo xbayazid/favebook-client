@@ -15,7 +15,7 @@ const NewsFeed = () => {
     const { data: newsFeedItems = [], isLoading } = useQuery({
         queryKey: ['newsFeed'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/posts/');
+            const res = await fetch('https://favebook-server-chi.vercel.app/posts/');
             const data = await res.json();
             return data;
         }
