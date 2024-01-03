@@ -19,7 +19,7 @@ const PostDetails = () => {
     const {data: comments= [], refetch, isLoading} = useQuery({
         queryKey: ['comment', _id],
         queryFn: async () => {
-            const res = await fetch(`https://favebook-server-chi.vercel.app/posts/${_id}/comments`);
+            const res = await fetch(`http://localhost:5000/posts/${_id}/comments`);
             const data = await res.json();
             return data;
         }
