@@ -46,7 +46,7 @@ const router = createBrowserRouter([
                 path: '/postDetails/:id',
                 element: <PrivateRoutes><PostDetails /></PrivateRoutes>,
                 loader: ({ params }) => {
-                    return fetch(`http://localhost:5000/posts/${params.id}`);
+                    return fetch(`https://favebook-server-chi.vercel.app/posts/${params.id}`);
                 }
             }
         ]
@@ -81,7 +81,7 @@ const router = createBrowserRouter([
                         path: '/dashboard/message/:id',
                         element: <Message/>,
                         loader: ({params}) => {
-                            return fetch(`http://localhost:5000/groups/${params.id}`)
+                            return fetch(`https://favebook-server-chi.vercel.app/groups/${params.id}`)
                         }
                     }
                 ]
