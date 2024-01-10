@@ -12,7 +12,7 @@ const JoinCommunity = () => {
     const {data: groups = [], isLoading} = useQuery({
         queryKey: ['group'],
         queryFn: async () => {
-            const res = await fetch('https://favebook-server-chi.vercel.app/groups/');
+            const res = await fetch('http://localhost:5000/groups/');
             const data = await res.json();
             return data;
         }

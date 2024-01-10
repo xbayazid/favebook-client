@@ -32,7 +32,7 @@ const AllUser = () => {
     const { data: users = [], isLoading, refetch } = useQuery({
         queryKey: ['user'],
         queryFn: async () => {
-            const res = await fetch('https://favebook-server-chi.vercel.app/users');
+            const res = await fetch('http://localhost:5000/users');
             const data = await res.json();
             data.map(async (user, i) => {
                 if (await user.role === 'admin') {
@@ -53,7 +53,7 @@ const AllUser = () => {
     })
 
     const handleRole = () => {
-        const url = `https://favebook-server-chi.vercel.app/users/update/${requestEmail}?action=${role}`;
+        const url = `http://localhost:5000/users/update/${requestEmail}?action=${role}`;
         fetch(url, {
             method: 'PUT',
             headers: {
@@ -71,7 +71,7 @@ const AllUser = () => {
                             bookNames: bookName,
                             meet: authorMeet
                         }
-                        fetch(`https://favebook-server-chi.vercel.app/authors`, {
+                        fetch(`http://localhost:5000/authors`, {
                             method: "POST",
                             headers: {
                                 "content-type": "application/json"

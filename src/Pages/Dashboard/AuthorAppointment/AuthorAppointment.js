@@ -12,7 +12,7 @@ const AuthorAppointment = () => {
     const { data: meetings = [], isLoading, refetch } = useQuery({
         queryKey: ['meeting'],
         queryFn: async () => {
-            const res = await fetch(`https://favebook-server-chi.vercel.app/myMeeting?email=${user?.email}`);
+            const res = await fetch(`http://localhost:5000/myMeeting?email=${user?.email}`);
             const data = await res.json();
             return data;
         }
@@ -37,7 +37,7 @@ const AuthorAppointment = () => {
             time
         }
 
-        fetch(`https://favebook-server-chi.vercel.app/meeting/${meeting._id}`, {
+        fetch(`http://localhost:5000/meeting/${meeting._id}`, {
             method: "PUT",
             headers: {
                 "content-type": "application/json"
@@ -46,15 +46,17 @@ const AuthorAppointment = () => {
         })
             .then(res => res.json())
             .then(data => {
-                if (data.acknowledge) {
+                console.log(data)
+                if (data.acknowledged) {
                     toast.success('meeting confirm')
+                    closeModal('meeting-modal')
                 }
             })
 
     }
 
     const handleDelete = (id) => {
-        fetch(`https://favebook-server-chi.vercel.app/meeting/${id}`, {
+        fetch(`http://localhost:5000/meeting/${id}`, {
             method: "DELETE"
         })
             .then(res => res.json())
@@ -89,7 +91,7 @@ const AuthorAppointment = () => {
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
                                 <td>{user.date ? user.date : 'Not Confirm Yet'}</td>
-                                <td>{user.time ? user.meet : 'Not Confirm Yet'}</td>
+                                <td>{user.time ? user.time : 'Not Confirm Yet'}</td>
                                 <td>
                                     {
                                         user.status === 'pending' ? <button onClick={() => {

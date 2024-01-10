@@ -11,7 +11,7 @@ const ReviewModal = ({setReviewModal, id, refetch}) => {
     const { data: type = [] } = useQuery({
         queryKey: ['role'],
         queryFn: async () => {
-            const res = await fetch(`https://favebook-server-chi.vercel.app/users/${user?.email}`);
+            const res = await fetch(`http://localhost:5000/users/${user?.email}`);
             const data = await res.json();
             setUType(data.role ? data.role : 'Member');
             return data;
@@ -40,7 +40,7 @@ const ReviewModal = ({setReviewModal, id, refetch}) => {
             <Navigate to="/authentication" state={{from: location}} replace></Navigate>
         }
         else{
-            fetch(`https://favebook-server-chi.vercel.app/posts/${id}/comments`, {
+            fetch(`http://localhost:5000/posts/${id}/comments`, {
                 method: 'PUT',
                 headers: {
                     "content-type": "application/json"
