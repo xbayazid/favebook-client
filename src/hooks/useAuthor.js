@@ -5,7 +5,7 @@ const useAuthor = email => {
     const [isAuthor, setIsAuthor] = useState(false);
     const [isAuthorLoading, setIsAuthorLoading] = useState(true);
     useEffect( () =>{
-        fetch(`https://favebook-server-chi.vercel.app/user/author/${email}`)
+        fetch(`http://localhost:5000/user/author/${email}`)
         .then(res => res.json())
         .then(data => {
             setIsAuthor(data.isAuthor);

@@ -39,7 +39,7 @@ const CreateGroup = () => {
                         ]
                     }
 
-                    fetch('https://favebook-server-chi.vercel.app/group', {
+                    fetch('http://localhost:5000/group', {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json',

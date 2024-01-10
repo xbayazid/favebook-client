@@ -36,7 +36,7 @@ const DashboardLayout = () => {
       bookName: book
     }
 
-    const url = `https://favebook-server-chi.vercel.app/users/update/${user?.email}?action=request`;
+    const url = `http://localhost:5000/users/update/${user?.email}?action=request`;
     fetch(url, {
       method: 'PUT',
       headers: {

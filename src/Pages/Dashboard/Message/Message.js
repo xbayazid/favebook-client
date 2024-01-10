@@ -14,7 +14,7 @@ const Message = () => {
     const { data: messages = [], isLoading, refetch } = useQuery({
         queryKey: ['message', _id],
         queryFn: async () => {
-            const res = await fetch(`https://favebook-server-chi.vercel.app/groups/${_id}`);
+            const res = await fetch(`http://localhost:5000/groups/${_id}`);
             const data = await res.json();
             return data.message;
         }
@@ -42,7 +42,7 @@ const Message = () => {
             text
         }
 
-        fetch(`https://favebook-server-chi.vercel.app/groups/${_id}`, {
+        fetch(`http://localhost:5000/groups/${_id}`, {
             method: 'PUT',
             headers: {
                 "content-type": "application/json"
