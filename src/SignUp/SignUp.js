@@ -26,7 +26,7 @@ const SignUp = () => {
 
   const saveUser = (name, email) => {
     const user = {name, email, role: 'Member'};
-    fetch('http://localhost:5000/users', {
+    fetch('https://favebook-server-chi.vercel.app/users', {
         method: 'POST',
         headers: {
           'content-type': 'application/json'

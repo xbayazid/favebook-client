@@ -10,14 +10,14 @@ const MyAppointments = () => {
     const { data: meeting = [], isLoading, refetch } = useQuery({
         queryKey: ['meeting'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/meeting?email=${user?.email}`);
+            const res = await fetch(`https://favebook-server-chi.vercel.app/meeting?email=${user?.email}`);
             const data = await res.json();
             return data;
         }
     })
 
     const handleDelete = (id) => {
-        fetch(`http://localhost:5000/meeting/${id}`, {
+        fetch(`https://favebook-server-chi.vercel.app/meeting/${id}`, {
             method: "DELETE"
         })
             .then(res => res.json())

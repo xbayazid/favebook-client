@@ -14,7 +14,7 @@ const CommunityCard = ({item}) => {
     // const {data: gropuMembers = []} = useQuery({
     //     queryKey: ['member'],
     //     queryFn: async () => {
-    //         const res = await fetch(`http://localhost:5000/groups/${_id}`);
+    //         const res = await fetch(`https://favebook-server-chi.vercel.app/groups/${_id}`);
     //         const data = await res.json();
     //         const members = await data.members;
     //         const joined = await members.filter(member => member.email === user?.email);
@@ -52,7 +52,7 @@ const CommunityCard = ({item}) => {
                 img
             }
 
-            fetch(`http://localhost:5000/joinGroup/${id}`, {
+            fetch(`https://favebook-server-chi.vercel.app/joinGroup/${id}`, {
             method: 'PUT',
             headers: {
                 "content-type": "application/json"

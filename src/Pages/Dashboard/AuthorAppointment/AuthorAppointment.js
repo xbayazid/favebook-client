@@ -12,7 +12,7 @@ const AuthorAppointment = () => {
     const { data: meetings = [], isLoading, refetch } = useQuery({
         queryKey: ['meeting'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/myMeeting?email=${user?.email}`);
+            const res = await fetch(`https://favebook-server-chi.vercel.app/myMeeting?email=${user?.email}`);
             const data = await res.json();
             return data;
         }
@@ -37,7 +37,7 @@ const AuthorAppointment = () => {
             time
         }
 
-        fetch(`http://localhost:5000/meeting/${meeting._id}`, {
+        fetch(`https://favebook-server-chi.vercel.app/meeting/${meeting._id}`, {
             method: "PUT",
             headers: {
                 "content-type": "application/json"
@@ -56,7 +56,7 @@ const AuthorAppointment = () => {
     }
 
     const handleDelete = (id) => {
-        fetch(`http://localhost:5000/meeting/${id}`, {
+        fetch(`https://favebook-server-chi.vercel.app/meeting/${id}`, {
             method: "DELETE"
         })
             .then(res => res.json())

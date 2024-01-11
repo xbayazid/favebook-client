@@ -12,7 +12,7 @@ const AddBook = () => {
     const { data: categories = [] } = useQuery({
         queryKey: ['category'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/categories/');
+            const res = await fetch('https://favebook-server-chi.vercel.app/categories/');
             const data = await res.json();
             return data;
         }
@@ -42,7 +42,7 @@ const AddBook = () => {
                         author: data.author
                     }
 
-                    fetch('http://localhost:5000/book', {
+                    fetch('https://favebook-server-chi.vercel.app/book', {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json',
