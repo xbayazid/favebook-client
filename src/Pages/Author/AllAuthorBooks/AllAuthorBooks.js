@@ -14,7 +14,7 @@ const AllAuthorBooks = () => {
     const { data: authors = [], isLoading } = useQuery({
         queryKey: ['author'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/authors/');
+            const res = await fetch('https://favebook-server-chi.vercel.app/authors/');
             const data = await res.json();
             return data;
         }
@@ -39,7 +39,7 @@ const AllAuthorBooks = () => {
         if(!user){
             <Navigate to="/authentication" state={{from: location}} replace></Navigate>
         }else{
-            fetch(`http://localhost:5000/meeting`, {
+            fetch(`https://favebook-server-chi.vercel.app/meeting`, {
                             method: "POST",
                             headers: {
                                 "content-type": "application/json"
